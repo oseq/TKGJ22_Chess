@@ -44,7 +44,7 @@ public class BoardLoop : MonoBehaviour
     private void Update()
     {
         var currentState = _stateMachine.Current();
-        if (currentState is State.Start or State.Fight)
+        if (currentState is State.Start)
         {
             // nothing to do.
             return;
@@ -87,7 +87,6 @@ public class BoardLoop : MonoBehaviour
         {
             var possible = boardManager.PossibleMoves(_selectedCharacter);
             _currentSelection = new SelectableFieldList(possible.ToList());
-            _stateMachine.Next();
 
             return;
         }
@@ -106,7 +105,10 @@ public class BoardLoop : MonoBehaviour
                 case InputResult.Accept:
                     _selectedMove = _currentSelection.Selection();
                     _currentSelection = null;
-                    _stateMachine.Next();
+                    if (_selectedMove != null)
+                    {
+                        _stateMachine.Next();
+                    }
                     break;
                 case InputResult.None:
                     break;
@@ -116,11 +118,30 @@ public class BoardLoop : MonoBehaviour
 
             return;
         }
-
+        
         if (currentState == State.Fight)
         {
-            // TODO 
+            if (_selectedMove.IsOccupied())
+            {
+                var attacker = PlayerFromState();
+                var defender = attacker == player1 ? player2 : player1;
+                if (DoFight(attacker, defender) == attacker)
+                {
+                    _selectedMove.Occupy(attacker, _selectedCharacter.GetCharacter(), true);
+                }
+            }
+            else
+            {
+                _selectedMove.Occupy(PlayerFromState(), _selectedCharacter.GetCharacter(), false);
+            }
+            _stateMachine.Next();
         }
+    }
+
+    // TODO: This will be the connection with arcade game, parameters might change
+    private static Player DoFight(Player attacker, Player defender)
+    {
+        return attacker;
     }
 
 
@@ -130,6 +151,8 @@ public class BoardLoop : MonoBehaviour
         {
             State.Player1SelectingCharacter or State.Player1SelectingMove => player1,
             State.Player2SelectingCharacter or State.Player2SelectingMove => player2,
+            State.Fight when _stateMachine.Previous() == State.Player1SelectingMove => player1,
+            State.Fight when _stateMachine.Previous() == State.Player2SelectingMove => player2,
             _ => null
         };
     }
@@ -173,6 +196,11 @@ public class BoardLoop : MonoBehaviour
             return _currentState;
         }
 
+        public State Previous()
+        {
+            return _previousState;
+        }
+
         public void Next()
         {
             switch (_currentState)
@@ -187,7 +215,15 @@ public class BoardLoop : MonoBehaviour
                     return;
                 case State.Player1SelectingMove:
                     _previousState = State.Player1SelectingMove;
-                    _previousState = State.Fight;
+                    _currentState = State.Fight;
+                    return;
+                case State.Player2SelectingCharacter:
+                    _previousState = State.Player2SelectingCharacter;
+                    _currentState = State.Player2SelectingMove;
+                    return;
+                case State.Player2SelectingMove:
+                    _previousState = State.Player2SelectingMove;
+                    _currentState = State.Fight;
                     return;
                 case State.Fight when _previousState == State.Player1SelectingMove:
                     _previousState = State.Fight;
