@@ -46,9 +46,15 @@ public class Field : MonoBehaviour
 
         if (!force) return false;
 
-        Destroy(character);
+        Destroy(character.gameObject);
 
         character = ch;
+        character.SetField(this);
+        character.SetOwner(requester);
+
+        character.transform.position = transform.position;
+        // ReSharper disable once Unity.InefficientPropertyAccess
+        character.transform.parent = transform;
         return true;
     }
 
