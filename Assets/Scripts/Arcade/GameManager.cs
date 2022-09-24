@@ -17,6 +17,8 @@ public class GameManager : MonoBehaviour
     [SerializeField]
     private SummaryPanelController _summaryPanel;
 
+    private bool isPlayingFinishAnimation = false;
+
     private void Awake()
     {
         _fallDetector.OnPlayerFelt += OnPlayerFelt;
@@ -37,7 +39,6 @@ public class GameManager : MonoBehaviour
     private void Update()
     {
         TryToRestart();
-        
     }
 
     private void InitializeGameplay()
@@ -73,6 +74,11 @@ public class GameManager : MonoBehaviour
 
     private void FinishAnimation(int playerWhoWon)
     {
+        if (isPlayingFinishAnimation)
+            return;
+
+        isPlayingFinishAnimation = true;
+
         var sequence = DOTween.Sequence();
         Time.timeScale = .25f;
 
