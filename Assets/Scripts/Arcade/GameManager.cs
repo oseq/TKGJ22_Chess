@@ -80,7 +80,7 @@ public class GameManager : MonoBehaviour
         isPlayingFinishAnimation = true;
 
         var sequence = DOTween.Sequence();
-        Time.timeScale = .25f;
+        Time.timeScale = .5f;
 
         //sequence.Append(DOTween.To(() => Time.timeScale, x => Time.timeScale = x, 0.25f, 0.5f).SetEase(Ease.InQuad).SetUpdate(true));
         sequence.SetUpdate(true);
