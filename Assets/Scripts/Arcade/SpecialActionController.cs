@@ -6,8 +6,8 @@ using UnityEngine;
 
 public class SpecialActionController : MonoBehaviour
 {
-    private float   _velocity;
-    private float   _jump;
+    private float _velocity;
+    private float _jump;
     [SerializeField]
     private Rigidbody _rb;
     [SerializeField]
@@ -30,6 +30,7 @@ public class SpecialActionController : MonoBehaviour
     private Stat _cooldown;
     private Stat _cooldownRate;
     private float _timeToNextUse;
+    private PowerUp _currentPowerUp;
 
     private void Awake()
     {
@@ -81,7 +82,18 @@ public class SpecialActionController : MonoBehaviour
 
     public void SecondarySpecialAction()
     {
-        
+        if(_currentPowerUp)
+        {
+            if(_currentPowerUp.onUse != null)
+            {
+                IPowerUpAction.Context context;
+                context.instigator = gameObject;
+                foreach (var action in _currentPowerUp.onUse)
+                {
+                    action.Perform(context);
+                }
+            }
+        }
     }
 
     private void TryToPerformAction()
@@ -94,8 +106,6 @@ public class SpecialActionController : MonoBehaviour
 
     private void TryToPerformSecondaryAction()
     {
-        if (false)
-            return;
         SecondarySpecialAction();
     }
 
@@ -124,8 +134,46 @@ public class SpecialActionController : MonoBehaviour
                 MinVector = Vector;
             }
         }
-        
+
         return MinVector;
+    }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.CompareTag("Collectable"))
+        {
+            IPowerUpAction.Context context;
+            context.instigator = gameObject;
+
+            if (_currentPowerUp)
+            {
+                if (_currentPowerUp.onAttach != null)
+                {
+                    foreach (var action in _currentPowerUp.onAttach)
+                    {
+                        action.Detached(context);
+                    }
+                }
+                _currentPowerUp = null;
+            }
+
+            var container = other.GetComponent<PowerUpContainer>();
+            if (container)
+            {
+                _currentPowerUp = container.Consume();
+                if (_currentPowerUp)
+                {
+                    
+                    if (_currentPowerUp.onAttach != null)
+                    {
+                        foreach (var action in _currentPowerUp.onAttach)
+                        {
+                            action.Perform(context);
+                        }
+                    }
+                }
+            }
+        }
     }
 
 }

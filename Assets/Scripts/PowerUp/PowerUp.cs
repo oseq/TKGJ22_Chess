@@ -2,6 +2,6 @@
 
 public class PowerUp : ScriptableObject
 {
-    [SerializeField] private IPowerUpAction[] onAttach;
-    [SerializeField] private IPowerUpAction[] onUse;
+    [SerializeField] public IPowerUpAction[] onAttach;
+    [SerializeField] public IPowerUpAction[] onUse;
 }
