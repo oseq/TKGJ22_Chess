@@ -18,10 +18,12 @@ public class Stat
     [SerializeField] private StatType type;
     [SerializeField] private float limitMin = 0.0f;
     [SerializeField] private float limitMax = 0.0f;
+    [SerializeField] private Modifiers modifiers = new Modifiers();
 
     public readonly UnityEvent onStatChanged = new UnityEvent();
 
-    private readonly ModifiersMap modifiers = new ModifiersMap();
+    //private readonly ModifiersMap modifiers = new ModifiersMap();
+
     private Cache cache;
 
     public StatType Type => type;
@@ -30,19 +32,13 @@ public class Stat
     {
         if (cache.dirty)
         {
-            Modifiers mods;
+            Modifiers mods = modifiers.FindAll(mod => mod.type == StatModifier.Type.Additive);
+            cache.value = mods.Sum(modifier => modifier.value);
 
-            if( modifiers.TryGetValue(StatModifier.Type.Additive, out mods) )
+            mods = modifiers.FindAll(mods => mods.type == StatModifier.Type.Multiplier);
+            if (mods.Count > 0)
             {
-                cache.value = mods.Sum(modifier => modifier.value);
-            }
-
-            if( modifiers.TryGetValue(StatModifier.Type.Multiplier, out mods) )
-            {
-                if (mods.Count > 0)
-                {
-                    cache.value *= mods.Sum(modifier => modifier.value);
-                }
+                cache.value *= mods.Sum(modifier => modifier.value);
             }
 
             cache.dirty = false;
@@ -54,13 +50,8 @@ public class Stat
 
     public StatModifier CreateModifier(StatModifier.Type type, float value)
     {
-        if (!modifiers.ContainsKey(type))
-        {
-            modifiers[type] = new Modifiers();
-        }
-
         var mod = new StatModifier(type, value);
-        modifiers[type].Add(mod);
+        modifiers.Add(mod);
 
         StatChanged();
 
@@ -69,13 +60,8 @@ public class Stat
 
     public void RemoveModifier(StatModifier modifier)
     {
-        Modifiers mods;
-        if(modifiers.TryGetValue(modifier.type, out mods))
-        {
-            mods.Remove(modifier);
-
-            StatChanged();
-        }
+        modifiers.Remove(modifier);
+        StatChanged();
     }
 
     private void StatChanged()
