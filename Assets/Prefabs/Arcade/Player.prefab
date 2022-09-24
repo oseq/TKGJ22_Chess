@@ -215,8 +215,8 @@ SphereCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Radius: 0.5
-  m_Center: {x: 0, y: 0, z: 0}
+  m_Radius: 1
+  m_Center: {x: 0, y: 0.5, z: 0}
 --- !u!54 &8598515813661975060
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -263,6 +263,7 @@ MonoBehaviour:
   _secondButton: 0
   _playerData: {fileID: 0}
   _actionButtonView: {fileID: 0}
+  _powerUpButtonView: {fileID: 0}
 --- !u!114 &8399016511159428929
 MonoBehaviour:
   m_ObjectHideFlags: 0
