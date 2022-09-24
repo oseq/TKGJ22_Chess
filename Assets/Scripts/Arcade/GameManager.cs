@@ -18,12 +18,12 @@ public class GameManager : MonoBehaviour
 
     private void Awake()
     {
-        //_fallDetector.OnPlayerFelt += OnPlayerFelt;
+        _fallDetector.OnPlayerFelt += OnPlayerFelt;
     }
 
     private void OnDestroy()
     {
-        //_fallDetector.OnPlayerFelt -= OnPlayerFelt;
+        _fallDetector.OnPlayerFelt -= OnPlayerFelt;
     }
 
     private void Start()
@@ -56,7 +56,7 @@ public class GameManager : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.R))
         {
-            SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+            RestartScene();
         }
     }
 
@@ -69,6 +69,11 @@ public class GameManager : MonoBehaviour
 
     private void OnPlayerFelt(PlayerController playerFelt)
     {
-        throw new NotImplementedException();
+        RestartScene();
+    }
+
+    private void RestartScene()
+    {
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
     }
 }
