@@ -9,13 +9,7 @@ public class Board : MonoBehaviour
     [SerializeField] private Field prefabBlack;
 
     [SerializeField] private int columns = 8;
-    public int GetNumberOfColumns() {
-        return this.columns;
-    }
     [SerializeField] private int rows = 8;
-    public int GetNumberOfRows() {
-        return this.rows;
-    }
 
     // All initialized fields
     [SerializeField] private Field[] fields;
@@ -26,13 +20,24 @@ public class Board : MonoBehaviour
 
         foreach (var startingConfigItem in startingConfig.items)
         {
-            fields.GetField(startingConfigItem.position).Occupy(startingConfigItem.character, true);
+            fields.GetField(startingConfigItem.position).Occupy(
+                startingConfigItem.owner, startingConfigItem.character, true);
         }
     }
 
     public IEnumerable<Field> CurrentState()
     {
         return fields;
+    }
+
+    public int GetNumberOfColumns()
+    {
+        return columns;
+    }
+
+    public int GetNumberOfRows()
+    {
+        return rows;
     }
 
     private void CreateGrid()

@@ -1,4 +1,4 @@
-using System.Collections.Generic; 
+using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 
@@ -27,11 +27,13 @@ public class Field : MonoBehaviour
         return character != null;
     }
 
-    public bool Occupy(Character ch, bool force)
+    public bool Occupy(Player requester, Character ch, bool force)
     {
         if (character == null)
         {
             character = ch;
+            character.SetField(this);
+            character.SetOwner(requester);
             return true;
         }
 

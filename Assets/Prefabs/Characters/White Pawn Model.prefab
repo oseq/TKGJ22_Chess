@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 3398312}
   - component: {fileID: 2328314}
   - component: {fileID: 6441710}
-  - component: {fileID: 3086461047635136413}
+  - component: {fileID: 5944743561096168236}
   m_Layer: 0
   m_Name: White Pawn Model
   m_TagString: Untagged
@@ -99,7 +99,7 @@ MeshCollider:
   m_Convex: 0
   m_CookingOptions: 30
   m_Mesh: {fileID: 4300000, guid: 6730016ba0e329c499d89e81bd550346, type: 3}
---- !u!114 &3086461047635136413
+--- !u!114 &5944743561096168236
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -108,14 +108,8 @@ MonoBehaviour:
   m_GameObject: {fileID: 104878}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7c9b8403bda546f88599db3be8caba33, type: 3}
+  m_Script: {fileID: 11500000, guid: cc5ce390c2812492eaf3b888e21e75c6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  forward: 0
-  currentPosition:
-    position: {x: 0, y: 0}
-    character: {fileID: 0}
-    prefab: {fileID: 0}
-    possibleMoveOverlay: {fileID: 0}
-    selectedOverlay: {fileID: 0}
+  currentPosition: {fileID: 0}
   owner: {fileID: 0}
