@@ -13,9 +13,15 @@ public class PlayerController : MonoBehaviour
     private float _velocityLimit = 3f;
 
     private Rigidbody _rb;
-    private bool _hasControl = true;
     private string _horizontalString;
     private string _verticalString;
+    private float _inputUnlockedTime;
+
+    private readonly float _inputLockDuration = .25f;
+
+    public int PlayerId => _playerId;
+    public Rigidbody Rigidbody => _rb;
+    public bool HasControl => _inputUnlockedTime <= Time.time;
 
     private void Awake()
     {
@@ -31,11 +37,10 @@ public class PlayerController : MonoBehaviour
 
     private void TryToMove()
     {
-        if (!_hasControl)
+        if (!HasControl)
             return;
 
-        Vector3 moveDir = transform.forward;
-        moveDir = new Vector3(Input.GetAxisRaw(_horizontalString), 0f, Input.GetAxisRaw(_verticalString));
+        Vector3 moveDir = new Vector3(Input.GetAxisRaw(_horizontalString), 0f, Input.GetAxisRaw(_verticalString));
 
         _rb.AddForce(moveDir * _moveForce * Time.fixedDeltaTime, ForceMode.Force);
         _rb.velocity = ClampVelocity(_rb.velocity);
@@ -57,5 +62,34 @@ public class PlayerController : MonoBehaviour
         }
 
         return velocity;
+    }
+
+    private void OnCollisionEnter(Collision collision)
+    {
+        //skip bounce if not attacker to not do it two times
+        if (PlayerId != 1 && HasControl)
+            return;
+
+        var playerHit = collision.collider.GetComponent<PlayerController>();
+        if (playerHit && playerHit.PlayerId != PlayerId)
+        {
+            //add bounce force
+            var ownVelocity = _rb.velocity;
+            var otherVelocity = playerHit.Rigidbody.velocity;
+
+            //_rb.AddForce(otherVelocity - ownVelocity, ForceMode.Impulse);
+            //playerHit.Rigidbody.AddForce(ownVelocity - otherVelocity, ForceMode.Impulse);
+
+            _rb.velocity = -ownVelocity + otherVelocity;
+            playerHit.Rigidbody.velocity = -otherVelocity + ownVelocity;
+
+            BlockInput();
+            playerHit.BlockInput();
+        }
+    }
+
+    public void BlockInput()
+    {
+        _inputUnlockedTime = Time.time + _inputLockDuration;
     }
 }
