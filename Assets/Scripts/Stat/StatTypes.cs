@@ -1,6 +1,8 @@
 ﻿public enum StatType
 {
     Speed,
+    SpeedLimit,
     Mass,
-    Cooldown
+    Cooldown,
+    CooldownRate
 }

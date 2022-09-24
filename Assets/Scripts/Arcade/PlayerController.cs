@@ -7,27 +7,89 @@ public class PlayerController : MonoBehaviour
 {
     [SerializeField]
     private int _playerId;
-    [SerializeField]
-    private float _moveForce = 10f;
-    [SerializeField]
-    private float _velocityLimit = 3f;
+
+    private Stat _speed;
+    private Stat _speedLimit;
 
     private Rigidbody _rb;
-    private string _horizontalString;
-    private string _verticalString;
+    private StatsContainer _sc;
+    [SerializeField]
+    private MeshFilter _playersPiece;
+    [SerializeField]
+    private MeshFilter[] _pieceTypes;
+    [SerializeField]
+    private ArcadeGameData arcadeGameData;
+
+    private SpecialActionController specialActionController;
+    private bool isWhite;
+    private bool isOffensive;
+  
+
     private float _inputUnlockedTime;
 
     private readonly float _inputLockDuration = .25f;
 
+    [SerializeField]
+    private Transform indicator;
+
     public int PlayerId => _playerId;
     public Rigidbody Rigidbody => _rb;
     public bool HasControl => _inputUnlockedTime <= Time.time;
+    public InputController InputController => InputManager.Instance.GetInputController(PlayerId);
 
     private void Awake()
     {
+        specialActionController = GetComponent<SpecialActionController>();
+
+        isOffensive = _playerId == 1;
+        if (isOffensive)
+        {
+            isWhite = CrossSceneDataTransfer.OffensivePlayerColor == PieceColor.White;
+            SetPieceType(CrossSceneDataTransfer.OffensivePlayer);
+            specialActionController.SetPieceType(arcadeGameData.dictonary[CrossSceneDataTransfer.OffensivePlayer]);
+            
+        } else
+        {
+            isWhite = CrossSceneDataTransfer.DeffensivePlayerColor == PieceColor.White;
+            SetPieceType(CrossSceneDataTransfer.DeffensivePlayer);
+            specialActionController.SetPieceType(arcadeGameData.dictonary[CrossSceneDataTransfer.DeffensivePlayer]);
+        }
         _rb = GetComponent<Rigidbody>();
-        _horizontalString = $"Horizontal{_playerId}";
-        _verticalString = $"Vertical{_playerId}";
+        _sc = GetComponent<StatsContainer>();
+        _speed = _sc.GetStat(StatType.Speed);
+        _speedLimit = _sc.GetStat(StatType.SpeedLimit);
+    }
+
+    private void Update()
+    {
+        RefreshIndicator();
+    }
+
+    public void SetPieceType(PieceType type)
+    {
+        int pieceNumber = !isWhite ? 6 : 0;
+        switch (type)
+        {
+            case PieceType.Bishop:
+                _playersPiece = _pieceTypes[pieceNumber];
+                break;
+            case PieceType.King:
+                _playersPiece = _pieceTypes[pieceNumber + 1];
+                break;
+            case PieceType.Knight:
+                _playersPiece = _pieceTypes[pieceNumber + 2];
+                break;
+            case PieceType.Pawn:
+                _playersPiece = _pieceTypes[pieceNumber + 3];
+                break;
+            case PieceType.Queen:
+                _playersPiece = _pieceTypes[pieceNumber + 4];
+                break;
+            case PieceType.Rook:
+                _playersPiece = _pieceTypes[pieceNumber + 5];
+                break;
+  
+        }
     }
 
     private void FixedUpdate()
@@ -40,25 +102,27 @@ public class PlayerController : MonoBehaviour
         if (!HasControl)
             return;
 
-        Vector3 moveDir = new Vector3(Input.GetAxisRaw(_horizontalString), 0f, Input.GetAxisRaw(_verticalString));
+        Vector3 moveDir = InputController.GetRealInputDirection();
 
-        _rb.AddForce(moveDir * _moveForce * Time.fixedDeltaTime, ForceMode.Force);
+        _rb.AddForce(moveDir * _speed.GetValue() * Time.fixedDeltaTime, ForceMode.Force);
         _rb.velocity = ClampVelocity(_rb.velocity);
+        //InputIndicator(moveDir);
+
     }
 
     private Vector3 ClampVelocity(Vector3 velocity)
     {
-        if (Mathf.Abs(velocity.x) > _velocityLimit)
+        if (Mathf.Abs(velocity.x) > _speedLimit.GetValue())
         {
-            velocity.x = _velocityLimit * Mathf.Sign(velocity.x);
+            velocity.x = _speedLimit.GetValue() * Mathf.Sign(velocity.x);
         }
-        if (Mathf.Abs(velocity.y) > _velocityLimit)
+        if (Mathf.Abs(velocity.y) > _speedLimit.GetValue())
         {
-            velocity.y = _velocityLimit * Mathf.Sign(velocity.y);
+            velocity.y = _speedLimit.GetValue() * Mathf.Sign(velocity.y);
         }
-        if (Mathf.Abs(velocity.x) > _velocityLimit)
+        if (Mathf.Abs(velocity.x) > _speedLimit.GetValue())
         {
-            velocity.z = _velocityLimit * Mathf.Sign(velocity.z);
+            velocity.z = _speedLimit.GetValue() * Mathf.Sign(velocity.z);
         }
 
         return velocity;
@@ -85,7 +149,19 @@ public class PlayerController : MonoBehaviour
 
             BlockInput();
             playerHit.BlockInput();
+
+            foreach (var item in collision.contacts)
+            {
+                Debug.DrawRay(item.point, item.normal * 100, Color.red, 10f);
+            }
         }
+    }
+
+    private void RefreshIndicator()
+    {
+        var dir = InputController.GetLastInputDirection();
+        indicator.LookAt(transform.position + dir, Vector3.up);
+        indicator.Rotate(90f, 0f, 0f);
     }
 
     public void BlockInput()

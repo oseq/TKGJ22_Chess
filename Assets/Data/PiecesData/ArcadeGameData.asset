@@ -1,0 +1,21 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4aa5aa76f3123f34eacfc88b07af849f, type: 3}
+  m_Name: ArcadeGameData
+  m_EditorClassIdentifier: 
+  _pieces:
+  - {fileID: 11400000, guid: 7398d125181b3e9488b9166064551152, type: 2}
+  - {fileID: 11400000, guid: 9b94ed6db46b7434aaae114f8b438179, type: 2}
+  - {fileID: 11400000, guid: d03ced3da0c498d488398a912818b93d, type: 2}
+  - {fileID: 11400000, guid: 92d856b4058d75f488ac283f1eede4cd, type: 2}
+  - {fileID: 11400000, guid: ff862c5db2a4bf740b8f34138648391e, type: 2}
+  - {fileID: 11400000, guid: b69cf91e1948b0a468d22772856f7c7d, type: 2}

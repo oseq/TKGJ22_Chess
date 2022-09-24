@@ -9,8 +9,8 @@ public class StatModifier
         Multiplier
     }
 
-    public Type type { get; private set; }
-    public float value { get; private set; }
+    public Type type;
+    public float value;
 
     public StatModifier(Type type, float value)
     {
