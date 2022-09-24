@@ -41,7 +41,8 @@ public class BoardManager : MonoBehaviour
             var validationResult = ValidateMove(
                 character,
                 position,
-                moveDirection.moveAction);
+                moveDirection.moveAction,
+                moveDirection.moveType);
             var validatedMove = new Move(
                 character.currentPosition,
                 board.CurrentState().GetField(position)
@@ -73,7 +74,7 @@ public class BoardManager : MonoBehaviour
         Invalid
     }
 
-    private MoveValidationResult ValidateMove(Character character, Vector2Int position, MoveAction moveAction)
+    private MoveValidationResult ValidateMove(Character character, Vector2Int position, MoveAction moveAction, MoveType moveType)
     {
         if (!IsPositionInBoard(position))
         {
@@ -89,7 +90,20 @@ public class BoardManager : MonoBehaviour
                 : MoveValidationResult.Invalid;
         }
 
-        return moveAction == MoveAction.Attack ? MoveValidationResult.Invalid : MoveValidationResult.ValidGo;
+        if (moveAction == MoveAction.Attack)
+        {
+            return MoveValidationResult.Invalid;
+        }
+
+        switch(moveType)
+        {
+            case MoveType.Continuous:
+                return MoveValidationResult.ValidGo;
+            case MoveType.Single:
+                return MoveValidationResult.ValidStop;
+            default:
+                throw new InvalidProgramException("Unhandled enum MoveValidationResult");
+        }
     }
 
     private bool IsPositionInBoard(Vector2Int position)
