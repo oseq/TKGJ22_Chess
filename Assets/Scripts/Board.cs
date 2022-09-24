@@ -1,55 +1,27 @@
-using Unity.VisualScripting;
+using System.Collections.Generic;
 using UnityEngine;
-
-[System.Serializable]
-public class Field
-{
-    [SerializeField] public Vector2Int position;
-    [SerializeField] private Character character;
-    [SerializeField] private GameObject field;
-
-    public Field(GameObject field, Vector2Int position)
-    {
-        this.field = field;
-        this.position = position;
-    }
-
-    public bool IsOccupied()
-    {
-        return character != null;
-    }
-
-    public bool Occupy(Character ch, bool force)
-    {
-        if (character == null)
-        {
-            character = ch;
-            return true;
-        }
-
-        if (!force) return false;
-
-        character.OnRemovedFromField();
-        character = ch;
-        return true;
-    }
-}
 
 public class Board : MonoBehaviour
 {
-    [SerializeField] private GameObject prefabWhite = null;
-    [SerializeField] private GameObject prefabBlack = null;
+    [SerializeField] private GameObject prefabWhite;
+    [SerializeField] private GameObject prefabBlack;
+
+    [SerializeField] private GameObject possibleMoveOverlay;
+    [SerializeField] private GameObject selectedOverlay;
 
     [SerializeField] private int columns = 8;
     [SerializeField] private int rows = 8;
-
-    private Vector3 _startPosition;
 
     [SerializeField] private Field[] fields;
 
     private void Start()
     {
         CreateGrid();
+    }
+
+    public IEnumerable<Field> CurrentState()
+    {
+        return fields;
     }
 
     private void CreateGrid()
@@ -72,7 +44,7 @@ public class Board : MonoBehaviour
                     transform
                 );
 
-                fields[arrPos] = new Field(prefab, new Vector2Int(i, j));
+                fields[arrPos] = new Field(prefab, possibleMoveOverlay, selectedOverlay, new Vector2Int(i, j));
 
                 black = !black;
             }
