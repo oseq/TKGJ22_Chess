@@ -28,6 +28,7 @@ public class BoardManager : MonoBehaviour
         {
             return moves;
         }
+
         foreach (var moveDirection in character.GetMoveDirections())
         {
             moves.AddRange(ExtendMoveDirection(character, moveDirection));
@@ -127,35 +128,35 @@ public class BoardManager : MonoBehaviour
         // clear previous state
         foreach (var field in currentState)
         {
-            field.PossibleSelect(false);
+            field.Unselect();
         }
 
-        selected.PossibleSelect(true);
+        selected.Select();
         var possibleMoves = AvailableMoves(selected.GetCharacter());
 
         var toMark = possibleMoves.Select(move => move.to).ToList();
         foreach (var field in toMark)
         {
-            field.PossibleSelect(true);
+            field.PossibleSelect();
         }
 
         return toMark;
     }
 
-    // ReSharper disable Unity.PerformanceAnalysis
+
     public IEnumerable<Field> PossiblePlayerStartingMoves(Player player)
     {
         var currentState = board.CurrentState().ToArray();
         foreach (var field in currentState)
         {
-            field.PossibleSelect(false);
+            field.Unselect();
         }
 
         var playerOccupiedFields = currentState.Where(x => x.GetCharacter() != null && x.GetCharacter().owner == player)
             .ToList();
         foreach (var field in playerOccupiedFields)
         {
-            field.Select();
+            field.PossibleSelect();
         }
 
         return playerOccupiedFields;
@@ -165,7 +166,7 @@ public class BoardManager : MonoBehaviour
     {
         foreach (var field in board.CurrentState())
         {
-            field.PossibleSelect(false);
+            field.Unselect();
         }
     }
 }

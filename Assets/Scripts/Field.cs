@@ -12,9 +12,12 @@ public class Field : MonoBehaviour
     [SerializeField] private Color possibleSelectionMaterial;
     [SerializeField] private Color selectionMaterial;
 
+    private MeshRenderer _meshRenderer;
+
     private void Start()
     {
-        PossibleSelect(false);
+        _meshRenderer = GetComponent<MeshRenderer>();
+        Unselect();
     }
 
     public void SetPosition(Vector2Int vec)
@@ -33,7 +36,7 @@ public class Field : MonoBehaviour
         if (character == null)
         {
             character = ch;
-            
+
             character.SetField(this);
             character.SetOwner(requester);
 
@@ -57,22 +60,23 @@ public class Field : MonoBehaviour
         character = null;
     }
 
-    // ReSharper disable Unity.PerformanceAnalysis
-    public void PossibleSelect(bool active)
+
+    // Marks the field as possible to select
+    public void PossibleSelect()
     {
-        GetComponent<MeshRenderer>().material.color = active ? possibleSelectionMaterial : originalMaterial;
+        _meshRenderer.material.color = possibleSelectionMaterial;
     }
 
-    // ReSharper disable Unity.PerformanceAnalysis
+    // Marks the field as selected
     public void Select()
     {
-        GetComponent<MeshRenderer>().material.color = selectionMaterial;
+        _meshRenderer.material.color = selectionMaterial;
     }
 
-    // ReSharper disable Unity.PerformanceAnalysis
+    // Deselect field (brings back original color)
     public void Unselect()
     {
-        GetComponent<MeshRenderer>().material.color = possibleSelectionMaterial;
+        _meshRenderer.material.color = originalMaterial;
     }
 
     public Character GetCharacter()

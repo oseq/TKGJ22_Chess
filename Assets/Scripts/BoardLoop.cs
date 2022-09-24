@@ -54,7 +54,8 @@ public class BoardLoop : MonoBehaviour
             _currentSelection == null)
         {
             var possible = boardManager.PossiblePlayerStartingMoves(PlayerFromState());
-            _currentSelection = new SelectableFieldList(possible.ToList());
+            _currentSelection = new SelectableFieldList(possible.OrderBy(x => x.position.y)
+                .ThenBy(x => x.position.x).ToList());
             return;
         }
 
@@ -86,7 +87,8 @@ public class BoardLoop : MonoBehaviour
         if (currentState is State.Player1SelectingMove or State.Player2SelectingMove && _currentSelection == null)
         {
             var possible = boardManager.PossibleMoves(_selectedCharacter);
-            _currentSelection = new SelectableFieldList(possible.ToList());
+            _currentSelection = new SelectableFieldList(possible.OrderBy(x => x.position.y)
+                .ThenBy(x => x.position.x).ToList());
 
             return;
         }
@@ -109,6 +111,7 @@ public class BoardLoop : MonoBehaviour
                     {
                         _stateMachine.Next();
                     }
+
                     break;
                 case InputResult.None:
                     break;
@@ -118,7 +121,7 @@ public class BoardLoop : MonoBehaviour
 
             return;
         }
-        
+
         if (currentState == State.Fight)
         {
             if (_selectedMove.IsOccupied())
@@ -134,6 +137,7 @@ public class BoardLoop : MonoBehaviour
             {
                 _selectedMove.Occupy(PlayerFromState(), _selectedCharacter.GetCharacter(), false);
             }
+
             _selectedCharacter.Deoccupy();
             _stateMachine.Next();
         }
@@ -288,7 +292,7 @@ public class BoardLoop : MonoBehaviour
             var selection = Selection();
             if (selection != null)
             {
-                Selection().Unselect();
+                Selection().PossibleSelect();
             }
         }
 
