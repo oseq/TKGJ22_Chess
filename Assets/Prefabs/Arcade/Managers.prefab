@@ -44,6 +44,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c965487a596ed9e45bd188b0e47b9d6e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _fallDetector: {fileID: 0}
+  _timeCounter: {fileID: 0}
+  _summaryPanel: {fileID: 0}
 --- !u!1 &7308724735452546106
 GameObject:
   m_ObjectHideFlags: 0
