@@ -70,16 +70,17 @@ public class SpecialActionController : MonoBehaviour
 
     private void TryToPerformAction()
     {
-        if (false)
+        if (_timeToNextUse > 0)
             return;
 
-        SecondarySpecialAction();
+        SpecialAction();
     }
 
     private void TryToPerformSecondaryAction()
     {
-
-        //SpecialAction();
+        if (false)
+            return;
+        SecondarySpecialAction();
     }
 
     public void ResetCooldown()
