@@ -3,7 +3,7 @@ using System.Linq;
 using UnityEngine;
 using System.Collections.Generic;
 
-[System.Serializable]
+[Serializable]
 public class Move
 {
     [SerializeField] public Field from;
@@ -16,7 +16,7 @@ public class Move
     }
 }
 
-[System.Serializable]
+[Serializable]
 public class BoardManager : MonoBehaviour
 {
     [SerializeField] private Board board;
@@ -24,6 +24,10 @@ public class BoardManager : MonoBehaviour
     private IEnumerable<Move> AvailableMoves(Character character)
     {
         var moves = new List<Move>();
+        if (character == null)
+        {
+            return moves;
+        }
         foreach (var moveDirection in character.GetMoveDirections())
         {
             moves.AddRange(ExtendMoveDirection(character, moveDirection));
@@ -69,7 +73,7 @@ public class BoardManager : MonoBehaviour
         return moves;
     }
 
-    [System.Serializable]
+    [Serializable]
     private enum MoveValidationResult
     {
         ValidStop,
