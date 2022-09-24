@@ -37,14 +37,13 @@ public class BoardManager : MonoBehaviour
         do
         {
             position += moveDirection.direction;
-            var positionField = board.CurrentState().GetField(position);
             var validationResult = ValidateMove(
                 character,
-                positionField,
+                position,
                 moveDirection.moveAction);
             var validatedMove = new Move(
                 character.currentPosition,
-                positionField
+                board.CurrentState().GetField(position)
             );
             switch (validationResult)
             {
@@ -73,16 +72,18 @@ public class BoardManager : MonoBehaviour
         Invalid
     }
 
-    private MoveValidationResult ValidateMove(Character character, Field to, MoveAction moveAction)
+    private MoveValidationResult ValidateMove(Character character, Vector2Int position, MoveAction moveAction)
     {
-        if (!IsPositionInBoard(to.position))
+        if (!IsPositionInBoard(position))
         {
             return MoveValidationResult.Invalid;
         }
 
-        if (to.IsOccupied())
+        var toField = board.CurrentState().GetField(position);
+
+        if (toField.IsOccupied())
         {
-            return to.GetCharacter().owner != character.owner
+            return toField.GetCharacter().owner != character.owner
                 ? MoveValidationResult.ValidStop
                 : MoveValidationResult.Invalid;
         }
