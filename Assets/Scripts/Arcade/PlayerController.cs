@@ -14,7 +14,15 @@ public class PlayerController : MonoBehaviour
     private Rigidbody _rb;
     private StatsContainer _sc;
     [SerializeField]
-    private MeshFilter _pieceType;
+    private MeshFilter _playersPiece;
+    [SerializeField]
+    private MeshFilter[] _pieceTypes;
+    [SerializeField]
+    private ArcadeGameData arcadeGameData;
+
+    private SpecialActionController specialActionController;
+    private bool isWhite;
+    private bool isOffensive;
   
 
     private string _horizontalString;
@@ -32,8 +40,22 @@ public class PlayerController : MonoBehaviour
 
     private void Awake()
     {
-        _rb = GetComponent<Rigidbody>();
+        specialActionController = GetComponent<SpecialActionController>();
 
+        isOffensive = _playerId == 1;
+        if (isOffensive)
+        {
+            isWhite = CrossSceneDataTransfer.OffensivePlayerColor == PieceColor.White;
+            SetPieceType(CrossSceneDataTransfer.OffensivePlayer);
+            specialActionController.SetPieceType(arcadeGameData.dictonary[CrossSceneDataTransfer.OffensivePlayer]);
+            
+        } else
+        {
+            isWhite = CrossSceneDataTransfer.DeffensivePlayerColor == PieceColor.White;
+            SetPieceType(CrossSceneDataTransfer.DeffensivePlayer);
+            specialActionController.SetPieceType(arcadeGameData.dictonary[CrossSceneDataTransfer.DeffensivePlayer]);
+        }
+        _rb = GetComponent<Rigidbody>();
         _sc = GetComponent<StatsContainer>();
         _speed = _sc.GetStat(StatType.Speed);
         _speedLimit = _sc.GetStat(StatType.SpeedLimit);
@@ -43,27 +65,28 @@ public class PlayerController : MonoBehaviour
 
     public void SetPieceType(PieceType type)
     {
+        int pieceNumber = !isWhite ? 6 : 0;
         switch (type)
         {
             case PieceType.Bishop:
-              
+                _playersPiece = _pieceTypes[pieceNumber];
                 break;
             case PieceType.King:
-
+                _playersPiece = _pieceTypes[pieceNumber + 1];
                 break;
             case PieceType.Knight:
-
+                _playersPiece = _pieceTypes[pieceNumber + 2];
                 break;
             case PieceType.Pawn:
-
+                _playersPiece = _pieceTypes[pieceNumber + 3];
                 break;
             case PieceType.Queen:
-
+                _playersPiece = _pieceTypes[pieceNumber + 4];
                 break;
             case PieceType.Rook:
-
+                _playersPiece = _pieceTypes[pieceNumber + 5];
                 break;
-   
+  
         }
     }
 

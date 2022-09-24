@@ -123,6 +123,30 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
+--- !u!114 &16367077 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 1878790200127961654, guid: d8bec73f7c8fe4d4191e773c6f1230c1,
+    type: 3}
+  m_PrefabInstance: {fileID: 7258031479521697548}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 95f4c8bc1ed537b419c04e476d4a0d85, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &16367078 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 1435986092951593198, guid: d8bec73f7c8fe4d4191e773c6f1230c1,
+    type: 3}
+  m_PrefabInstance: {fileID: 7258031479521697548}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a8c5597d8d99b424d8bf87add1cd54f3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &281446404
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -331,6 +355,30 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b26b90f6e6eeba245a6b6d9cff8bfc29, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &1627220014 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 1627981987997019939, guid: 4e4e9e978d372324ba87a6c1cd20c441,
+    type: 3}
+  m_PrefabInstance: {fileID: 23779634695729555}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 95f4c8bc1ed537b419c04e476d4a0d85, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &1627220015 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 2263244612058527227, guid: 4e4e9e978d372324ba87a6c1cd20c441,
+    type: 3}
+  m_PrefabInstance: {fileID: 23779634695729555}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a8c5597d8d99b424d8bf87add1cd54f3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &1687979881 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 1990880084760695770, guid: ef3790a175d3f904f9d296f5d0655c01,
@@ -536,6 +584,12 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 2263244612058527227, guid: 4e4e9e978d372324ba87a6c1cd20c441,
+        type: 3}
+      propertyPath: arcadeGameData
+      value: 
+      objectReference: {fileID: 11400000, guid: 14fe6c01bc6c6be48977e5d118b90cc8,
+        type: 2}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 4e4e9e978d372324ba87a6c1cd20c441, type: 3}
 --- !u!1001 &1990880086430258355
@@ -826,6 +880,12 @@ PrefabInstance:
       propertyPath: m_Name
       value: Player2
       objectReference: {fileID: 0}
+    - target: {fileID: 1435986092951593198, guid: d8bec73f7c8fe4d4191e773c6f1230c1,
+        type: 3}
+      propertyPath: arcadeGameData
+      value: 
+      objectReference: {fileID: 11400000, guid: 14fe6c01bc6c6be48977e5d118b90cc8,
+        type: 2}
     - target: {fileID: 1878790200127961654, guid: d8bec73f7c8fe4d4191e773c6f1230c1,
         type: 3}
       propertyPath: _actionButtonView
@@ -860,6 +920,26 @@ PrefabInstance:
       propertyPath: _summaryPanel
       value: 
       objectReference: {fileID: 1990880086430258356}
+    - target: {fileID: 7308724735103715228, guid: 742649f76190df740af07cb7e80042c2,
+        type: 3}
+      propertyPath: offensivePlayer
+      value: 
+      objectReference: {fileID: 1627220015}
+    - target: {fileID: 7308724735103715228, guid: 742649f76190df740af07cb7e80042c2,
+        type: 3}
+      propertyPath: deffensivePlayer
+      value: 
+      objectReference: {fileID: 16367078}
+    - target: {fileID: 7308724735103715228, guid: 742649f76190df740af07cb7e80042c2,
+        type: 3}
+      propertyPath: offensivePlayerAction
+      value: 
+      objectReference: {fileID: 1627220014}
+    - target: {fileID: 7308724735103715228, guid: 742649f76190df740af07cb7e80042c2,
+        type: 3}
+      propertyPath: deffensivePlayerAction
+      value: 
+      objectReference: {fileID: 16367077}
     - target: {fileID: 7308724735452546106, guid: 742649f76190df740af07cb7e80042c2,
         type: 3}
       propertyPath: m_Name

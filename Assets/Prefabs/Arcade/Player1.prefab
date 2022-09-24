@@ -82,6 +82,11 @@ PrefabInstance:
       propertyPath: m_RootOrder
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 2463347501462036388, guid: 8bbc5076e8e4668449da0962d37ef179,
+        type: 3}
+      propertyPath: m_RootOrder
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 3120536041313262402, guid: 8bbc5076e8e4668449da0962d37ef179,
         type: 3}
       propertyPath: m_RootOrder
@@ -90,7 +95,7 @@ PrefabInstance:
     - target: {fileID: 5035338002566478165, guid: 8bbc5076e8e4668449da0962d37ef179,
         type: 3}
       propertyPath: m_RootOrder
-      value: 1
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 8598515813661975057, guid: 8bbc5076e8e4668449da0962d37ef179,
         type: 3}
@@ -162,6 +167,71 @@ PrefabInstance:
       propertyPath: _playerId
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 8598515813661975083, guid: 8bbc5076e8e4668449da0962d37ef179,
+        type: 3}
+      propertyPath: _pieceTypes.Array.size
+      value: 12
+      objectReference: {fileID: 0}
+    - target: {fileID: 8598515813661975083, guid: 8bbc5076e8e4668449da0962d37ef179,
+        type: 3}
+      propertyPath: _pieceTypes.Array.data[0]
+      value: 
+      objectReference: {fileID: 3300000, guid: 66ad00b166b914e47acce78daea25aa6, type: 3}
+    - target: {fileID: 8598515813661975083, guid: 8bbc5076e8e4668449da0962d37ef179,
+        type: 3}
+      propertyPath: _pieceTypes.Array.data[1]
+      value: 
+      objectReference: {fileID: 3300000, guid: a1edea9a41e71514f94a737abaf1410c, type: 3}
+    - target: {fileID: 8598515813661975083, guid: 8bbc5076e8e4668449da0962d37ef179,
+        type: 3}
+      propertyPath: _pieceTypes.Array.data[2]
+      value: 
+      objectReference: {fileID: 3300000, guid: 639050e749c3ce444a196d84e803b067, type: 3}
+    - target: {fileID: 8598515813661975083, guid: 8bbc5076e8e4668449da0962d37ef179,
+        type: 3}
+      propertyPath: _pieceTypes.Array.data[3]
+      value: 
+      objectReference: {fileID: 3300000, guid: 8fbcce33444d4ce4db5b61f8d0eeb7aa, type: 3}
+    - target: {fileID: 8598515813661975083, guid: 8bbc5076e8e4668449da0962d37ef179,
+        type: 3}
+      propertyPath: _pieceTypes.Array.data[4]
+      value: 
+      objectReference: {fileID: 3300000, guid: 5d7a66b35fd81564380721b6bfcaaa47, type: 3}
+    - target: {fileID: 8598515813661975083, guid: 8bbc5076e8e4668449da0962d37ef179,
+        type: 3}
+      propertyPath: _pieceTypes.Array.data[5]
+      value: 
+      objectReference: {fileID: 3300000, guid: c61872173bf5220469786c549644854f, type: 3}
+    - target: {fileID: 8598515813661975083, guid: 8bbc5076e8e4668449da0962d37ef179,
+        type: 3}
+      propertyPath: _pieceTypes.Array.data[6]
+      value: 
+      objectReference: {fileID: 3300000, guid: 1e1130c2d0732f44eb82b057a9dcf58b, type: 3}
+    - target: {fileID: 8598515813661975083, guid: 8bbc5076e8e4668449da0962d37ef179,
+        type: 3}
+      propertyPath: _pieceTypes.Array.data[7]
+      value: 
+      objectReference: {fileID: 3300000, guid: 763435837405bc24691af77936be360b, type: 3}
+    - target: {fileID: 8598515813661975083, guid: 8bbc5076e8e4668449da0962d37ef179,
+        type: 3}
+      propertyPath: _pieceTypes.Array.data[8]
+      value: 
+      objectReference: {fileID: 3300000, guid: 69faab6ae9c00a848a82d036ac8c75d4, type: 3}
+    - target: {fileID: 8598515813661975083, guid: 8bbc5076e8e4668449da0962d37ef179,
+        type: 3}
+      propertyPath: _pieceTypes.Array.data[9]
+      value: 
+      objectReference: {fileID: 3300000, guid: 6730016ba0e329c499d89e81bd550346, type: 3}
+    - target: {fileID: 8598515813661975083, guid: 8bbc5076e8e4668449da0962d37ef179,
+        type: 3}
+      propertyPath: _pieceTypes.Array.data[10]
+      value: 
+      objectReference: {fileID: 3300000, guid: 3d88c9550087ec84c95090f5be583f60, type: 3}
+    - target: {fileID: 8598515813661975083, guid: 8bbc5076e8e4668449da0962d37ef179,
+        type: 3}
+      propertyPath: _pieceTypes.Array.data[11]
+      value: 
+      objectReference: {fileID: 3300000, guid: 695bd15b69d9eac408b599c22f9de55d, type: 3}
     - target: {fileID: 9127521657689078003, guid: 8bbc5076e8e4668449da0962d37ef179,
         type: 3}
       propertyPath: _rb
