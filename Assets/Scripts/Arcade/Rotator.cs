@@ -1,6 +1,4 @@
 using DG.Tweening;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class Rotator : MonoBehaviour
@@ -9,15 +7,23 @@ public class Rotator : MonoBehaviour
     private bool isPlaying = true;
     [SerializeField]
     private float speed = 0.0f;
+    [SerializeField]
+    private float stepRotation = 90f;
+    [SerializeField]
+    private float stepTime = .3f;
+    [SerializeField]
+    private float stepDelay = 1f;
 
     private float currentRotation = 0.0f;
+    private float nextStepTime = 0f;
 
     private void Update()
     {
-        if (isPlaying)
+        if (isPlaying && nextStepTime <= Time.time)
         {
-            currentRotation += speed * Time.unscaledDeltaTime;
-            transform.rotation = Quaternion.Euler(-90f, 0f, currentRotation);
+            currentRotation += stepRotation;
+            transform.DORotateQuaternion(Quaternion.Euler(0f, currentRotation, 0f), stepTime);
+            nextStepTime = Time.time + stepDelay;
         }
     }
 }
