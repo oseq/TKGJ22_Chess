@@ -113,4 +113,5 @@ MonoBehaviour:
   position: {x: 0, y: 0}
   character: {fileID: 0}
   originalMaterial: {r: 1, g: 1, b: 1, a: 0}
-  selectedMaterial: {r: 1, g: 1, b: 0, a: 0}
+  possibleSelectionMaterial: {r: 1, g: 1, b: 0, a: 0}
+  selectionMaterial: {r: 1, g: 0, b: 0, a: 0}

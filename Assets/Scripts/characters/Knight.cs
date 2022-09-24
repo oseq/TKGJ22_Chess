@@ -15,14 +15,14 @@ public class Knight : Character
     {
         return new List<MoveDirection>
         {
-            new(new Vector2Int(2 * (int)directionUnit, -1), MoveAction.Move, MoveType.Single),
-            new(new Vector2Int((int)directionUnit, -2), MoveAction.Move, MoveType.Single),
-            new(new Vector2Int(2 * (int)directionUnit, 1), MoveAction.Move, MoveType.Single),
-            new(new Vector2Int((int)directionUnit, 2), MoveAction.Move, MoveType.Single),
-            new(new Vector2Int(-2 * (int)directionUnit, -1), MoveAction.Move, MoveType.Single),
-            new(new Vector2Int(-(int)directionUnit, -2), MoveAction.Move, MoveType.Single),
-            new(new Vector2Int(-2 * (int)directionUnit, 1), MoveAction.Move, MoveType.Single),
-            new(new Vector2Int(-(int)directionUnit, 2), MoveAction.Move, MoveType.Single),
+            new(new Vector2Int(-1, 2 * (int)directionUnit), MoveAction.Move, MoveType.Single),
+            new(new Vector2Int(-2, (int)directionUnit), MoveAction.Move, MoveType.Single),
+            new(new Vector2Int(1, 2 * (int)directionUnit), MoveAction.Move, MoveType.Single),
+            new(new Vector2Int(2, (int)directionUnit), MoveAction.Move, MoveType.Single),
+            new(new Vector2Int(-1, -2 * (int)directionUnit), MoveAction.Move, MoveType.Single),
+            new(new Vector2Int(-2, -(int)directionUnit), MoveAction.Move, MoveType.Single),
+            new(new Vector2Int(1, -2 * (int)directionUnit), MoveAction.Move, MoveType.Single),
+            new(new Vector2Int(2, -(int)directionUnit), MoveAction.Move, MoveType.Single),
         };
     }
 }

@@ -1,4 +1,5 @@
 using System;
+using System.Collections;
 using System.Linq;
 using UnityEngine;
 using System.Collections.Generic;
@@ -74,7 +75,8 @@ public class BoardManager : MonoBehaviour
         Invalid
     }
 
-    private MoveValidationResult ValidateMove(Character character, Vector2Int position, MoveAction moveAction, MoveType moveType)
+    private MoveValidationResult ValidateMove(Character character, Vector2Int position, MoveAction moveAction,
+        MoveType moveType)
     {
         if (!IsPositionInBoard(position))
         {
@@ -95,15 +97,12 @@ public class BoardManager : MonoBehaviour
             return MoveValidationResult.Invalid;
         }
 
-        switch(moveType)
+        return moveType switch
         {
-            case MoveType.Continuous:
-                return MoveValidationResult.ValidGo;
-            case MoveType.Single:
-                return MoveValidationResult.ValidStop;
-            default:
-                throw new InvalidProgramException("Unhandled enum MoveValidationResult");
-        }
+            MoveType.Continuous => MoveValidationResult.ValidGo,
+            MoveType.Single => MoveValidationResult.ValidStop,
+            _ => throw new InvalidProgramException("Unhandled enum MoveValidationResult")
+        };
     }
 
     private bool IsPositionInBoard(Vector2Int position)
@@ -115,24 +114,52 @@ public class BoardManager : MonoBehaviour
     }
 
     // player has selected the field, show possible movements (turn on the proper overlay)
-    public void OnFieldSelected(Vector2Int selectedField)
+    public IEnumerable<Field> PossibleMoves(Field selected)
     {
         var currentState = board.CurrentState().ToArray();
 
         // clear previous state
         foreach (var field in currentState)
         {
-            field.PossibleMoveOverlay(false);
+            field.PossibleSelect(false);
         }
 
-        var selected = currentState.GetField(selectedField);
-        selected.PossibleMoveOverlay(true);
+        selected.PossibleSelect(true);
         var possibleMoves = AvailableMoves(selected.GetCharacter());
 
-        var toMark = possibleMoves.Select(move => move.to);
+        var toMark = possibleMoves.Select(move => move.to).ToList();
         foreach (var field in toMark)
         {
-            field.PossibleMoveOverlay(true);
+            field.PossibleSelect(true);
+        }
+
+        return toMark;
+    }
+
+    // ReSharper disable Unity.PerformanceAnalysis
+    public IEnumerable<Field> PossiblePlayerStartingMoves(Player player)
+    {
+        var currentState = board.CurrentState().ToArray();
+        foreach (var field in currentState)
+        {
+            field.PossibleSelect(false);
+        }
+
+        var playerOccupiedFields = currentState.Where(x => x.GetCharacter() != null && x.GetCharacter().owner == player)
+            .ToList();
+        foreach (var field in playerOccupiedFields)
+        {
+            field.Select();
+        }
+
+        return playerOccupiedFields;
+    }
+
+    public void ClearSelection()
+    {
+        foreach (var field in board.CurrentState())
+        {
+            field.PossibleSelect(false);
         }
     }
 }

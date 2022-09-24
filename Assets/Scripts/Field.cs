@@ -9,11 +9,12 @@ public class Field : MonoBehaviour
     [SerializeField] private Character character;
 
     [SerializeField] private Color originalMaterial;
-    [SerializeField] private Color selectedMaterial;
+    [SerializeField] private Color possibleSelectionMaterial;
+    [SerializeField] private Color selectionMaterial;
 
     private void Start()
     {
-        PossibleMoveOverlay(false);
+        PossibleSelect(false);
     }
 
     public void SetPosition(Vector2Int vec)
@@ -26,27 +27,47 @@ public class Field : MonoBehaviour
         return character != null;
     }
 
+    // Please notice you must put an initialized Character here  
     public bool Occupy(Player requester, Character ch, bool force)
     {
         if (character == null)
         {
             character = ch;
+
             character.SetField(this);
             character.SetOwner(requester);
+
+            character.transform.position = transform.position;
+            // ReSharper disable once Unity.InefficientPropertyAccess
+            character.transform.parent = transform;
+
             return true;
         }
 
         if (!force) return false;
 
-        character.OnRemovedFromField();
+        Destroy(character);
+
         character = ch;
         return true;
     }
 
     // ReSharper disable Unity.PerformanceAnalysis
-    public void PossibleMoveOverlay(bool active)
+    public void PossibleSelect(bool active)
     {
-        GetComponent<MeshRenderer>().material.color = active ? selectedMaterial : originalMaterial;
+        GetComponent<MeshRenderer>().material.color = active ? possibleSelectionMaterial : originalMaterial;
+    }
+
+    // ReSharper disable Unity.PerformanceAnalysis
+    public void Select()
+    {
+        GetComponent<MeshRenderer>().material.color = selectionMaterial;
+    }
+
+    // ReSharper disable Unity.PerformanceAnalysis
+    public void Unselect()
+    {
+        GetComponent<MeshRenderer>().material.color = possibleSelectionMaterial;
     }
 
     public Character GetCharacter()

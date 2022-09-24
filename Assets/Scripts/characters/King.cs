@@ -15,10 +15,10 @@ public class King : Character
     {
         return new List<MoveDirection>
         {
-            new(new Vector2Int((int)directionUnit, 0), MoveAction.Move, MoveType.Single),
-            new(new Vector2Int(-(int)directionUnit, 0), MoveAction.Move, MoveType.Single),
-            new(new Vector2Int(0, 1), MoveAction.Move, MoveType.Single),
-            new(new Vector2Int(0, -1), MoveAction.Move, MoveType.Single)
+            new(new Vector2Int(0, (int)directionUnit), MoveAction.Move, MoveType.Single),
+            new(new Vector2Int(0, -(int)directionUnit), MoveAction.Move, MoveType.Single),
+            new(new Vector2Int(1, 0), MoveAction.Move, MoveType.Single),
+            new(new Vector2Int(-1, 0), MoveAction.Move, MoveType.Single)
         };
     }
 }

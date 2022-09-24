@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Board : MonoBehaviour
+public class Board : MonoBehaviour // actually a field container & initializer
 {
     [SerializeField] private StartingBoardConfig startingConfig;
 
@@ -20,8 +20,11 @@ public class Board : MonoBehaviour
 
         foreach (var startingConfigItem in startingConfig.items)
         {
+            var character = Instantiate(startingConfigItem.character);
+            character.gameObject.SetActive(true);
+
             fields.GetField(startingConfigItem.position).Occupy(
-                startingConfigItem.owner, startingConfigItem.character, true);
+                startingConfigItem.owner, character, true);
         }
     }
 

@@ -15,9 +15,9 @@ public class Pawn : Character
     {
         return new List<MoveDirection>
         {
-            new(new Vector2Int((int)directionUnit, 0), MoveAction.Move, MoveType.Single),
-            new(new Vector2Int((int)directionUnit, 1), MoveAction.Attack, MoveType.Single),
-            new(new Vector2Int((int)directionUnit, -1), MoveAction.Attack, MoveType.Single)
+            new(new Vector2Int(0, (int)directionUnit), MoveAction.Move, MoveType.Single),
+            new(new Vector2Int(1, (int)directionUnit), MoveAction.Attack, MoveType.Single),
+            new(new Vector2Int(-1, (int)directionUnit), MoveAction.Attack, MoveType.Single)
         };
     }
 }

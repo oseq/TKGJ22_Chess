@@ -54,10 +54,5 @@ public abstract class Character : MonoBehaviour
         owner = own;
     }
 
-    // Trigger for being removed from the field.
-    public void OnRemovedFromField()
-    {
-    }
-
     public abstract List<MoveDirection> GetMoveDirections();
 }
