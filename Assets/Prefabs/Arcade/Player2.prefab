@@ -126,16 +126,16 @@ MonoBehaviour:
   container:
   - type: 0
     limitMin: 0
-    limitMax: 100
+    limitMax: 5000
     modifiers:
     - type: 0
-      value: 10
+      value: 1000
   - type: 1
     limitMin: 0
-    limitMax: 100
+    limitMax: 5000
     modifiers:
     - type: 0
-      value: 3
+      value: 500
 --- !u!4 &5762333535879207303 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 3120536041313262402, guid: 8bbc5076e8e4668449da0962d37ef179,
