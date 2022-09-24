@@ -17,8 +17,6 @@ public class PlayerController : MonoBehaviour
     private MeshFilter _pieceType;
   
 
-    private string _horizontalString;
-    private string _verticalString;
     private float _inputUnlockedTime;
 
     private readonly float _inputLockDuration = .25f;
@@ -29,6 +27,7 @@ public class PlayerController : MonoBehaviour
     public int PlayerId => _playerId;
     public Rigidbody Rigidbody => _rb;
     public bool HasControl => _inputUnlockedTime <= Time.time;
+    public InputController InputController => InputManager.Instance.GetInputController(PlayerId);
 
     private void Awake()
     {
@@ -37,8 +36,11 @@ public class PlayerController : MonoBehaviour
         _sc = GetComponent<StatsContainer>();
         _speed = _sc.GetStat(StatType.Speed);
         _speedLimit = _sc.GetStat(StatType.SpeedLimit);
-        _horizontalString = $"Horizontal{_playerId}";
-        _verticalString = $"Vertical{_playerId}";
+    }
+
+    private void Update()
+    {
+        RefreshIndicator();
     }
 
     public void SetPieceType(PieceType type)
@@ -77,7 +79,7 @@ public class PlayerController : MonoBehaviour
         if (!HasControl)
             return;
 
-        Vector3 moveDir = new Vector3(Input.GetAxisRaw(_horizontalString), 0f, Input.GetAxisRaw(_verticalString));
+        Vector3 moveDir = InputController.GetRealInputDirection();
 
         _rb.AddForce(moveDir * _speed.GetValue() * Time.fixedDeltaTime, ForceMode.Force);
         _rb.velocity = ClampVelocity(_rb.velocity);
@@ -132,13 +134,11 @@ public class PlayerController : MonoBehaviour
         }
     }
 
-    private void InputIndicator (Vector3 dir)
+    private void RefreshIndicator()
     {
-        //indicator.LookAt(transform.position + dir);
-        var rotation = Quaternion.LookRotation(dir).eulerAngles;
-        rotation.x = 90f;
-        rotation.y = 0f;
-        indicator.rotation = Quaternion.Euler(rotation);
+        var dir = InputController.GetLastInputDirection();
+        indicator.LookAt(transform.position + dir, Vector3.up);
+        indicator.Rotate(90f, 0f, 0f);
     }
 
     public void BlockInput()
