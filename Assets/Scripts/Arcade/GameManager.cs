@@ -11,40 +11,25 @@ public class GameManager : MonoBehaviour
 {
     [SerializeField]
     private FallDetector _fallDetector;
-
-    public float timeRemaining = 30;
-    public TMP_Text counterText;
-    public bool timerIsRunning = false;
+    [SerializeField]
+    private TimeCounter _timeCounter;
 
     private void Awake()
     {
-        //_fallDetector.OnPlayerFelt += OnPlayerFelt;
+        _fallDetector.OnPlayerFelt += OnPlayerFelt;
+        _timeCounter.OnTimePassedOut += OnTimePassedOut;
     }
 
     private void OnDestroy()
     {
-        //_fallDetector.OnPlayerFelt -= OnPlayerFelt;
-    }
-
-    private void Start()
-    {
-        // Starts the timer automatically
-        timerIsRunning = true;
+        _fallDetector.OnPlayerFelt -= OnPlayerFelt;
+        _timeCounter.OnTimePassedOut -= OnTimePassedOut;
     }
 
     private void Update()
     {
         TryToRestart();
-        if (timeRemaining > 0)
-        {
-            timeRemaining -= Time.deltaTime;
-            DisplayTime(timeRemaining);
-        }
-        else
-        {
-            Debug.Log("Time has run out!");
-            timerIsRunning = false;
-        }
+        
     }
 
     private void InitializeGameplay()
@@ -56,19 +41,22 @@ public class GameManager : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.R))
         {
-            SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+            RestartScene();
         }
-    }
-
-    private void DisplayTime(float timeToDisplay)
-    {
-        float minutes = Mathf.FloorToInt(timeToDisplay / 60);
-        float seconds = Mathf.FloorToInt(timeToDisplay % 60);
-        counterText.text = string.Format("{0:00}:{1:00}", minutes, seconds);
     }
 
     private void OnPlayerFelt(PlayerController playerFelt)
     {
+        RestartScene();
+    }
+
+    private void OnTimePassedOut()
+    {
         throw new NotImplementedException();
+    }
+
+    private void RestartScene()
+    {
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
     }
 }
