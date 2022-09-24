@@ -13,6 +13,9 @@ public class PlayerController : MonoBehaviour
 
     private Rigidbody _rb;
     private StatsContainer _sc;
+    [SerializeField]
+    private MeshFilter _pieceType;
+  
 
     private string _horizontalString;
     private string _verticalString;
@@ -33,6 +36,32 @@ public class PlayerController : MonoBehaviour
         _speedLimit = _sc.GetStat(StatType.SpeedLimit);
         _horizontalString = $"Horizontal{_playerId}";
         _verticalString = $"Vertical{_playerId}";
+    }
+
+    public void SetPieceType(PieceType type)
+    {
+        switch (type)
+        {
+            case PieceType.Bishop:
+              
+                break;
+            case PieceType.King:
+
+                break;
+            case PieceType.Knight:
+
+                break;
+            case PieceType.Pawn:
+
+                break;
+            case PieceType.Queen:
+
+                break;
+            case PieceType.Rook:
+
+                break;
+   
+        }
     }
 
     private void FixedUpdate()

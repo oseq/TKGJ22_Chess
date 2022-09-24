@@ -24,5 +24,6 @@ public class PieceData : ScriptableObject
     public float Velocity;
     public float Jump;
     public float Mass;
+    public PieceType type;
 
 }

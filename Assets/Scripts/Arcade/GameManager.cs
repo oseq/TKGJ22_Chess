@@ -16,6 +16,14 @@ public class GameManager : MonoBehaviour
     private TimeCounter _timeCounter;
     [SerializeField]
     private SummaryPanelController _summaryPanel;
+    [SerializeField]
+    private PlayerController offensivePlayer;
+    [SerializeField]
+    private SpecialActionController offensivePlayerAction;
+    [SerializeField]
+    private PlayerController deffensivePlayer;
+    [SerializeField]
+    private SpecialActionController deffensivePlayerAction;
 
     private bool isPlayingFinishAnimation = false;
 
@@ -23,6 +31,8 @@ public class GameManager : MonoBehaviour
     {
         _fallDetector.OnPlayerFelt += OnPlayerFelt;
         _timeCounter.OnTimePassedOut += OnTimePassedOut;
+        offensivePlayer.SetPieceType(CrossSceneDataTransfer.OffensivePlayer);
+        deffensivePlayer.SetPieceType(CrossSceneDataTransfer.DeffensivePlayer);
     }
 
     private void OnDestroy()
