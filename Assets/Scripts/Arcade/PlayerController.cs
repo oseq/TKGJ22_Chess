@@ -106,8 +106,6 @@ public class PlayerController : MonoBehaviour
 
         _rb.AddForce(moveDir * _speed.GetValue() * Time.fixedDeltaTime, ForceMode.Force);
         _rb.velocity = ClampVelocity(_rb.velocity);
-        //InputIndicator(moveDir);
-
     }
 
     private Vector3 ClampVelocity(Vector3 velocity)

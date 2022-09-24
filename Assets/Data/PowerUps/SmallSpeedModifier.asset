@@ -13,5 +13,5 @@ MonoBehaviour:
   m_Name: SmallSpeedModifier
   m_EditorClassIdentifier: 
   stat: 0
-  value: 5
-  modifierType: 0
+  value: 1.15
+  modifierType: 1

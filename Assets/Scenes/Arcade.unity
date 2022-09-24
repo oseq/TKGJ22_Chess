@@ -528,6 +528,11 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 1627981987997019939, guid: 4e4e9e978d372324ba87a6c1cd20c441,
         type: 3}
+      propertyPath: _secondButton
+      value: 101
+      objectReference: {fileID: 0}
+    - target: {fileID: 1627981987997019939, guid: 4e4e9e978d372324ba87a6c1cd20c441,
+        type: 3}
       propertyPath: _actionButtonView
       value: 
       objectReference: {fileID: 2017070243}
@@ -898,6 +903,11 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 11400000, guid: 14fe6c01bc6c6be48977e5d118b90cc8,
         type: 2}
+    - target: {fileID: 1878790200127961654, guid: d8bec73f7c8fe4d4191e773c6f1230c1,
+        type: 3}
+      propertyPath: _secondButton
+      value: 59
+      objectReference: {fileID: 0}
     - target: {fileID: 1878790200127961654, guid: d8bec73f7c8fe4d4191e773c6f1230c1,
         type: 3}
       propertyPath: _actionButtonView

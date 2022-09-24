@@ -22,6 +22,11 @@ PrefabInstance:
       propertyPath: m_RootOrder
       value: 2
       objectReference: {fileID: 0}
+    - target: {fileID: 8399016511159428929, guid: 8bbc5076e8e4668449da0962d37ef179,
+        type: 3}
+      propertyPath: container.Array.data[0].limitMax
+      value: 100000
+      objectReference: {fileID: 0}
     - target: {fileID: 8598515813661975057, guid: 8bbc5076e8e4668449da0962d37ef179,
         type: 3}
       propertyPath: m_Name
