@@ -25,7 +25,7 @@ Transform:
   m_GameObject: {fileID: 248300005239206850}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1.2, y: 1.2, z: 1.2}
+  m_LocalScale: {x: 1.4, y: 1.4, z: 1.4}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 8598515813661975061}
@@ -42,7 +42,6 @@ GameObject:
   - component: {fileID: 5035338002566478165}
   - component: {fileID: 7277147475059836067}
   - component: {fileID: 6401695073783450846}
-  - component: {fileID: 699771960753700077}
   m_Layer: 7
   m_Name: Quad
   m_TagString: Untagged
@@ -59,7 +58,7 @@ Transform:
   m_GameObject: {fileID: 7914498802069221671}
   m_LocalRotation: {x: 0.7071068, y: -0, z: -0, w: 0.7071068}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1.8000002, y: 1.8000003, z: 1.1999999}
+  m_LocalScale: {x: 2, y: 2, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 8598515813661975061}
@@ -115,20 +114,6 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!64 &699771960753700077
-MeshCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7914498802069221671}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 4
-  m_Convex: 0
-  m_CookingOptions: 30
-  m_Mesh: {fileID: 10210, guid: 0000000000000000e000000000000000, type: 0}
 --- !u!1 &8598515813661975057
 GameObject:
   m_ObjectHideFlags: 0
@@ -143,6 +128,7 @@ GameObject:
   - component: {fileID: 8598515813661975056}
   - component: {fileID: 8598515813661975060}
   - component: {fileID: 8598515813661975083}
+  - component: {fileID: 9127521657689078003}
   m_Layer: 7
   m_Name: Player
   m_TagString: Untagged
@@ -244,7 +230,7 @@ Rigidbody:
   m_UseGravity: 1
   m_IsKinematic: 0
   m_Interpolate: 0
-  m_Constraints: 84
+  m_Constraints: 80
   m_CollisionDetection: 0
 --- !u!114 &8598515813661975083
 MonoBehaviour:
@@ -261,3 +247,22 @@ MonoBehaviour:
   _playerId: 0
   _moveForce: 1000
   _velocityLimit: 100
+--- !u!114 &9127521657689078003
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8598515813661975057}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 95f4c8bc1ed537b419c04e476d4a0d85, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _velocity: 20
+  _isJump: 0
+  _rb: {fileID: 0}
+  _button: 0
+  SkillData: {fileID: 11400000, guid: 92d856b4058d75f488ac283f1eede4cd, type: 2}
+  Cooldown: 0
+  CooldownRate: 0
