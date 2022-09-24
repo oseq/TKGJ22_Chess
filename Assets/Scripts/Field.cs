@@ -33,7 +33,7 @@ public class Field : MonoBehaviour
         if (character == null)
         {
             character = ch;
-
+            
             character.SetField(this);
             character.SetOwner(requester);
 
@@ -50,6 +50,11 @@ public class Field : MonoBehaviour
 
         character = ch;
         return true;
+    }
+
+    public void Deoccupy()
+    {
+        character = null;
     }
 
     // ReSharper disable Unity.PerformanceAnalysis

@@ -134,6 +134,7 @@ public class BoardLoop : MonoBehaviour
             {
                 _selectedMove.Occupy(PlayerFromState(), _selectedCharacter.GetCharacter(), false);
             }
+            _selectedCharacter.Deoccupy();
             _stateMachine.Next();
         }
     }
