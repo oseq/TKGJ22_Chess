@@ -8,12 +8,11 @@ public class Field : MonoBehaviour
     [SerializeField] public Vector2Int position;
     [SerializeField] private Character character;
 
-    [SerializeField] private GameObject possibleMoveOverlay;
-    [SerializeField] private GameObject selectedOverlay;
+    [SerializeField] private Color originalMaterial;
+    [SerializeField] private Color selectedMaterial;
 
     private void Start()
     {
-        SelectedOverlay(false);
         PossibleMoveOverlay(false);
     }
 
@@ -44,14 +43,10 @@ public class Field : MonoBehaviour
         return true;
     }
 
+    // ReSharper disable Unity.PerformanceAnalysis
     public void PossibleMoveOverlay(bool active)
     {
-        possibleMoveOverlay.SetActive(active);
-    }
-
-    public void SelectedOverlay(bool active)
-    {
-        selectedOverlay.SetActive(active);
+        GetComponent<MeshRenderer>().material.color = active ? selectedMaterial : originalMaterial;
     }
 
     public Character GetCharacter()

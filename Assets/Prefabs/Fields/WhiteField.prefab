@@ -112,7 +112,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   position: {x: 0, y: 0}
   character: {fileID: 0}
-  possibleMoveOverlay: {fileID: 6399911857610607730, guid: ff333d8f89b0c40da999c16e31ee26cd,
-    type: 3}
-  selectedOverlay: {fileID: 6399911857610607730, guid: ff333d8f89b0c40da999c16e31ee26cd,
-    type: 3}
+  originalMaterial: {r: 1, g: 1, b: 1, a: 0}
+  selectedMaterial: {r: 1, g: 1, b: 0, a: 0}

@@ -22,10 +22,11 @@ public class BoardManager : MonoBehaviour
     private IEnumerable<Move> AvailableMoves(Character character)
     {
         var moves = new List<Move>();
-        character.GetMoveDirections().ForEach(delegate(MoveDirection moveDirection)
+        foreach (var moveDirection in character.GetMoveDirections())
         {
             moves.AddRange(ExtendMoveDirection(character, moveDirection));
-        });
+        }
+
         return moves;
     }
 
@@ -108,11 +109,10 @@ public class BoardManager : MonoBehaviour
         foreach (var field in currentState)
         {
             field.PossibleMoveOverlay(false);
-            field.SelectedOverlay(false);
         }
 
         var selected = currentState.GetField(selectedField);
-        selected.SelectedOverlay(true);
+        selected.PossibleMoveOverlay(true);
         var possibleMoves = AvailableMoves(selected.GetCharacter());
 
         var toMark = possibleMoves.Select(move => move.to);
