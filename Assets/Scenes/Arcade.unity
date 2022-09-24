@@ -857,10 +857,40 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 5657982650715736067, guid: 742649f76190df740af07cb7e80042c2,
+        type: 3}
+      propertyPath: powerUps.Array.size
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 5657982650715736067, guid: 742649f76190df740af07cb7e80042c2,
+        type: 3}
+      propertyPath: spawnRules.startDelay
+      value: 8
+      objectReference: {fileID: 0}
+    - target: {fileID: 5657982650715736067, guid: 742649f76190df740af07cb7e80042c2,
+        type: 3}
+      propertyPath: powerUps.Array.data[0]
+      value: 
+      objectReference: {fileID: 730225581}
+    - target: {fileID: 5657982650715736067, guid: 742649f76190df740af07cb7e80042c2,
+        type: 3}
+      propertyPath: powerUps.Array.data[1]
+      value: 
+      objectReference: {fileID: 7737477495944144162}
+    - target: {fileID: 5657982650715736067, guid: 742649f76190df740af07cb7e80042c2,
+        type: 3}
+      propertyPath: powerUps.Array.data[2]
+      value: 
+      objectReference: {fileID: 7737477495944144161}
+    - target: {fileID: 5657982650715736067, guid: 742649f76190df740af07cb7e80042c2,
+        type: 3}
+      propertyPath: powerUps.Array.data[3]
+      value: 
+      objectReference: {fileID: 7737477495944144160}
     - target: {fileID: 6464620385402416929, guid: 742649f76190df740af07cb7e80042c2,
         type: 3}
       propertyPath: powerUps.Array.size
-      value: 5
+      value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 6464620385402416929, guid: 742649f76190df740af07cb7e80042c2,
         type: 3}

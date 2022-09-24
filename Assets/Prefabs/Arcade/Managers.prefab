@@ -1,10 +1,6 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
-<<<<<<< HEAD
---- !u!1 &6008817197362787073
-=======
 --- !u!1 &292715336793221227
->>>>>>> 6a2c7184946c06a874ccce7b509967acf288d6eb
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -12,48 +8,26 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-<<<<<<< HEAD
-  - component: {fileID: 4569602435905736241}
-  - component: {fileID: 6464620385402416929}
-  m_Layer: 0
-  m_Name: PowerUpsCoordinator
-=======
   - component: {fileID: 626671485335404265}
   - component: {fileID: 2335939754748435556}
   m_Layer: 0
   m_Name: InputManager
->>>>>>> 6a2c7184946c06a874ccce7b509967acf288d6eb
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
-<<<<<<< HEAD
---- !u!4 &4569602435905736241
-=======
 --- !u!4 &626671485335404265
->>>>>>> 6a2c7184946c06a874ccce7b509967acf288d6eb
 Transform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-<<<<<<< HEAD
-  m_GameObject: {fileID: 6008817197362787073}
-=======
   m_GameObject: {fileID: 292715336793221227}
->>>>>>> 6a2c7184946c06a874ccce7b509967acf288d6eb
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
-<<<<<<< HEAD
-  m_Children: []
-  m_Father: {fileID: 7308724735452546107}
-  m_RootOrder: 1
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &6464620385402416929
-=======
   m_Children:
   - {fileID: 3810207745745461543}
   - {fileID: 5404814760704074441}
@@ -156,21 +130,11 @@ Transform:
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1816856872712123994
->>>>>>> 6a2c7184946c06a874ccce7b509967acf288d6eb
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-<<<<<<< HEAD
-  m_GameObject: {fileID: 6008817197362787073}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 200467968b08044d4a258efc4c59f7e2, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  powerUps: []
-=======
   m_GameObject: {fileID: 6310562797237928336}
   m_Enabled: 1
   m_EditorHideFlags: 0
@@ -182,7 +146,54 @@ MonoBehaviour:
   _actionBtnA: 113
   _actionBtnB: 101
   _initialInputDirection: {x: 1, y: 0, z: 0}
->>>>>>> 6a2c7184946c06a874ccce7b509967acf288d6eb
+--- !u!1 &7076356660948467741
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2897719937242409436}
+  - component: {fileID: 5657982650715736067}
+  m_Layer: 0
+  m_Name: PowerUpCoordinator
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &2897719937242409436
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7076356660948467741}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 7308724735452546107}
+  m_RootOrder: 2
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &5657982650715736067
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7076356660948467741}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 200467968b08044d4a258efc4c59f7e2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  powerUps: []
+  spawnRules:
+    startDelay: 5
+    spawnCooldown: 5
 --- !u!1 &7308724735103715230
 GameObject:
   m_ObjectHideFlags: 0
@@ -230,6 +241,10 @@ MonoBehaviour:
   _fallDetector: {fileID: 0}
   _timeCounter: {fileID: 0}
   _summaryPanel: {fileID: 0}
+  offensivePlayer: {fileID: 0}
+  offensivePlayerAction: {fileID: 0}
+  deffensivePlayer: {fileID: 0}
+  deffensivePlayerAction: {fileID: 0}
 --- !u!1 &7308724735452546106
 GameObject:
   m_ObjectHideFlags: 0
@@ -259,11 +274,8 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 7308724735103715231}
-<<<<<<< HEAD
-  - {fileID: 4569602435905736241}
-=======
   - {fileID: 626671485335404265}
->>>>>>> 6a2c7184946c06a874ccce7b509967acf288d6eb
+  - {fileID: 2897719937242409436}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
