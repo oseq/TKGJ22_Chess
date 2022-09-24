@@ -1,12 +1,29 @@
 ﻿using System;
 using UnityEngine;
 
-
-[Serializable]
+[CreateAssetMenu(fileName="NewForceFielPowerUp")]
 public class ForceFieldPowerUp : IPowerUpAction
 {
-    public void Perform(IPowerUpAction.Context context)
+    public float radius;
+    public float force;
+
+    public override void Perform(IPowerUpAction.Context context)
     {
-        Debug.Log("Boom!");
+        var position = context.instigator.transform.position;
+        Collider[] colliders = Physics.OverlapSphere(position, radius);
+
+        foreach (Collider hit in colliders)
+        {
+            if (hit.gameObject != context.instigator)
+            {
+                Rigidbody rb = hit.GetComponent<Rigidbody>();
+                if (rb != null)
+                {
+                    rb.AddExplosionForce(force, position, radius, 3.0F);
+                }
+            }
+        }
     }
+
+    public override void Detached(Context context) {}
 }

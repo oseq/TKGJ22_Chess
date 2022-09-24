@@ -1,12 +1,12 @@
-﻿using System;
+﻿using UnityEngine;
 
-[Serializable]
-public abstract class IPowerUpAction
+public abstract class IPowerUpAction : ScriptableObject
 {
     public struct Context
     {
-        public UnityEngine.GameObject instigator;
+        public GameObject instigator;
     }
 
-    public void Perform(Context context) {}
+    public abstract void Perform(Context context);
+    public abstract void Detached(Context context);
 }

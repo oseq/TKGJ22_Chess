@@ -1,6 +1,6 @@
-﻿using System;
-using UnityEngine;
+﻿using UnityEngine;
 
+[CreateAssetMenu(fileName = "NewApplyStatModifierPowerUp")]
 public class ApplyStatModifierPowerUp : IPowerUpAction
 {
     public StatType stat;
@@ -9,9 +9,15 @@ public class ApplyStatModifierPowerUp : IPowerUpAction
 
     private StatModifier modifier;
 
-    public void Perform(IPowerUpAction.Context context)
+    public override void Perform(IPowerUpAction.Context context)
     {
         var statContainer = (StatsContainer)context.instigator.GetComponent<StatsContainer>();
         modifier = statContainer.GetStat(stat).CreateModifier(modifierType, value);
+    }
+
+    public override void Detached(Context context)
+    {
+        var statContainer = (StatsContainer)context.instigator.GetComponent<StatsContainer>();
+        statContainer.GetStat(stat).RemoveModifier(modifier);
     }
 }
