@@ -10,7 +10,13 @@ public class Board : MonoBehaviour
     [SerializeField] private GameObject selectedOverlay;
 
     [SerializeField] private int columns = 8;
+    public int GetNumberOfColumns() {
+        return this.columns;
+    }
     [SerializeField] private int rows = 8;
+    public int GetNumberOfRows() {
+        return this.rows;
+    }
 
     [SerializeField] private Field[] fields;
 
