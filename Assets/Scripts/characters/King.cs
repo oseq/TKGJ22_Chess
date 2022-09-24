@@ -18,7 +18,11 @@ public class King : Character
             new(new Vector2Int((int)directionUnit, 0), MoveAction.Move, MoveType.Single),
             new(new Vector2Int(-(int)directionUnit, 0), MoveAction.Move, MoveType.Single),
             new(new Vector2Int(0, 1), MoveAction.Move, MoveType.Single),
-            new(new Vector2Int(0, -1), MoveAction.Move, MoveType.Single)
+            new(new Vector2Int(0, -1), MoveAction.Move, MoveType.Single),
+            new(new Vector2Int((int)directionUnit, 1), MoveAction.Move, MoveType.Single),
+            new(new Vector2Int((int)directionUnit, -1), MoveAction.Move, MoveType.Single),
+            new(new Vector2Int(-(int)directionUnit, 1), MoveAction.Move, MoveType.Single),
+            new(new Vector2Int(-(int)directionUnit, -1), MoveAction.Move, MoveType.Single)
         };
     }
 }
