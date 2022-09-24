@@ -20,6 +20,9 @@ public class PlayerController : MonoBehaviour
 
     private readonly float _inputLockDuration = .25f;
 
+    [SerializeField]
+    private Transform indicator;
+
     public int PlayerId => _playerId;
     public Rigidbody Rigidbody => _rb;
     public bool HasControl => _inputUnlockedTime <= Time.time;
@@ -49,6 +52,8 @@ public class PlayerController : MonoBehaviour
 
         _rb.AddForce(moveDir * _speed.GetValue() * Time.fixedDeltaTime, ForceMode.Force);
         _rb.velocity = ClampVelocity(_rb.velocity);
+        //InputIndicator(moveDir);
+
     }
 
     private Vector3 ClampVelocity(Vector3 velocity)
@@ -96,6 +101,15 @@ public class PlayerController : MonoBehaviour
                 Debug.DrawRay(item.point, item.normal * 100, Color.red, 10f);
             }
         }
+    }
+
+    private void InputIndicator (Vector3 dir)
+    {
+        //indicator.LookAt(transform.position + dir);
+        var rotation = Quaternion.LookRotation(dir).eulerAngles;
+        rotation.x = 90f;
+        rotation.y = 0f;
+        indicator.rotation = Quaternion.Euler(rotation);
     }
 
     public void BlockInput()
