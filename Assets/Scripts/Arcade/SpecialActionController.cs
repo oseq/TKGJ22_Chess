@@ -92,6 +92,9 @@ public class SpecialActionController : MonoBehaviour
                 {
                     action.Perform(context);
                 }
+
+                _powerUpButtonView.SetReady(false);
+                _currentPowerUp = null;
             }
         }
     }
@@ -163,13 +166,17 @@ public class SpecialActionController : MonoBehaviour
                 _currentPowerUp = container.Consume();
                 if (_currentPowerUp)
                 {
-                    
                     if (_currentPowerUp.onAttach != null)
                     {
                         foreach (var action in _currentPowerUp.onAttach)
                         {
                             action.Perform(context);
                         }
+                    }
+
+                    if(_currentPowerUp.onUse != null && _currentPowerUp.onUse.Length > 0)
+                    {
+                        _powerUpButtonView.SetReady(true);
                     }
                 }
             }
