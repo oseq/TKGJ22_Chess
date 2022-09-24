@@ -2,6 +2,7 @@ using System;
 using System.Linq;
 using UnityEngine;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 
 [Serializable]
 public class Move
@@ -98,6 +99,7 @@ public class BoardManager : MonoBehaviour
             {
                 return MoveValidationResult.Invalid;
             }
+
             return toField.GetCharacter().owner != character.owner
                 ? MoveValidationResult.ValidStop
                 : MoveValidationResult.Invalid;
@@ -125,6 +127,8 @@ public class BoardManager : MonoBehaviour
     }
 
     // player has selected the field, show possible movements (turn on the proper overlay)
+    // Unfortunately, this method has side effects.
+    // If you need just get the moves use NOOP method.
     public IEnumerable<Field> PossibleMoves(Field selected)
     {
         var currentState = board.CurrentState().ToArray();
@@ -147,7 +151,13 @@ public class BoardManager : MonoBehaviour
         return toMark;
     }
 
+    public IEnumerable<Field> PossibleMovesNoop(Field field)
+    {
+        return AvailableMoves(field.GetCharacter()).Select(move => move.to);
+    }
 
+    // Unfortunately, this method has side effect.
+    // If you need just get the moves use NOOP method.
     public IEnumerable<Field> PossiblePlayerStartingMoves(Player player)
     {
         var currentState = board.CurrentState().ToArray();
@@ -164,6 +174,11 @@ public class BoardManager : MonoBehaviour
         }
 
         return playerOccupiedFields;
+    }
+
+    public IEnumerable<Field> PossiblePlayerStartingMovesNoop(Player player)
+    {
+        return board.CurrentState().Where(x => x.GetCharacter() != null && x.GetCharacter().owner == player);
     }
 
     public void ClearSelection()

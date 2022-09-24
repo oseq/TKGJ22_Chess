@@ -43,6 +43,13 @@ public class BoardLoop : MonoBehaviour
         _stateMachine.Next();
     }
 
+    private bool CanKillKing(Player player)
+    {
+        return boardManager.PossiblePlayerStartingMoves(player)
+            .SelectMany(x => boardManager.PossibleMoves(x))
+            .Any(f => f.GetCharacter() is King);
+    }
+
     private void Update()
     {
         var currentState = _stateMachine.Current();
