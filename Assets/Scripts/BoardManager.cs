@@ -3,10 +3,11 @@ using System.Linq;
 using UnityEngine;
 using System.Collections.Generic;
 
+[System.Serializable]
 public class Move
 {
-    public Field from;
-    public Field to;
+    [SerializeField] public Field from;
+    [SerializeField] public Field to;
 
     public Move(Field from, Field to)
     {
@@ -15,6 +16,7 @@ public class Move
     }
 }
 
+[System.Serializable]
 public class BoardManager : MonoBehaviour
 {
     [SerializeField] private Board board;
@@ -67,6 +69,7 @@ public class BoardManager : MonoBehaviour
         return moves;
     }
 
+    [System.Serializable]
     private enum MoveValidationResult
     {
         ValidStop,

@@ -30,6 +30,7 @@ public class MoveDirection
     }
 }
 
+[System.Serializable]
 public enum CharacterDirectionUnit
 {
     Forward = 1,

@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+[System.Serializable]
 public class Board : MonoBehaviour
 {
     [SerializeField] private StartingBoardConfig startingConfig;
