@@ -1,13 +1,13 @@
 fileFormatVersion: 2
-guid: 11e9ad0f194cd4c72b990f559117c132
+guid: 7ee4e4db50d954b0cab64347018b4243
 labels:
 - chess
 - board
 - boardgame
 - game
 - chessboard
-- Pawn
-timeCreated: 1462534792
+- Bishop
+timeCreated: 1462534614
 licenseType: Store
 NativeFormatImporter:
   userData: 

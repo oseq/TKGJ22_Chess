@@ -1,13 +1,13 @@
 fileFormatVersion: 2
-guid: 11e9ad0f194cd4c72b990f559117c132
+guid: c37bdb678c9484f39b075f07cefe7118
 labels:
 - chess
 - board
 - boardgame
 - game
 - chessboard
-- Pawn
-timeCreated: 1462534792
+- Queen
+timeCreated: 1462534789
 licenseType: Store
 NativeFormatImporter:
   userData: 

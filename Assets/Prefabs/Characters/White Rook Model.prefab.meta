@@ -1,13 +1,13 @@
 fileFormatVersion: 2
-guid: 11e9ad0f194cd4c72b990f559117c132
+guid: 4f02a34effb684decad32c22befcf1c2
 labels:
 - chess
 - board
 - boardgame
 - game
 - chessboard
-- Pawn
-timeCreated: 1462534792
+- Rook
+timeCreated: 1462534791
 licenseType: Store
 NativeFormatImporter:
   userData: 
