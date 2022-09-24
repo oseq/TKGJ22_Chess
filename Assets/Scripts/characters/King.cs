@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 [Serializable]
-public class Pawn : Character
+public class King : Character
 {
     public override List<MoveDirection> GetMoveDirections()
     {
@@ -16,8 +16,9 @@ public class Pawn : Character
         return new List<MoveDirection>
         {
             new(new Vector2Int((int)directionUnit, 0), MoveAction.Move, MoveType.Single),
-            new(new Vector2Int((int)directionUnit, 1), MoveAction.Attack, MoveType.Single),
-            new(new Vector2Int((int)directionUnit, -1), MoveAction.Attack, MoveType.Single)
+            new(new Vector2Int(-(int)directionUnit, 0), MoveAction.Move, MoveType.Single),
+            new(new Vector2Int(0, 1), MoveAction.Move, MoveType.Single),
+            new(new Vector2Int(0, -1), MoveAction.Move, MoveType.Single)
         };
     }
 }
