@@ -3,20 +3,25 @@ using UnityEngine;
 
 public class Board : MonoBehaviour
 {
-    [SerializeField] private GameObject prefabWhite;
-    [SerializeField] private GameObject prefabBlack;
+    [SerializeField] private StartingBoardConfig startingConfig;
 
-    [SerializeField] private GameObject possibleMoveOverlay;
-    [SerializeField] private GameObject selectedOverlay;
+    [SerializeField] private Field prefabWhite;
+    [SerializeField] private Field prefabBlack;
 
     [SerializeField] private int columns = 8;
     [SerializeField] private int rows = 8;
 
+    // All initialized fields
     [SerializeField] private Field[] fields;
 
     private void Start()
     {
         CreateGrid();
+
+        foreach (var startingConfigItem in startingConfig.items)
+        {
+            fields.GetField(startingConfigItem.position).Occupy(startingConfigItem.character, true);
+        }
     }
 
     public IEnumerable<Field> CurrentState()
@@ -43,9 +48,9 @@ public class Board : MonoBehaviour
                     Quaternion.Euler(0f, 0f, 0f),
                     transform
                 );
+                prefab.SetPosition(new Vector2Int(i, j));
 
-                fields[arrPos] = new Field(prefab, possibleMoveOverlay, selectedOverlay, new Vector2Int(i, j));
-
+                fields[arrPos] = prefab;
                 black = !black;
             }
 

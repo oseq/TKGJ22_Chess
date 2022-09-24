@@ -1,29 +1,25 @@
-using System.Collections;
-using System.Collections.Generic;
+using System.Collections.Generic; 
 using System.Linq;
 using UnityEngine;
 
 [System.Serializable]
-public class Field
+public class Field : MonoBehaviour
 {
     [SerializeField] public Vector2Int position;
-
     [SerializeField] private Character character;
-
-    [SerializeField] private GameObject prefab;
 
     [SerializeField] private GameObject possibleMoveOverlay;
     [SerializeField] private GameObject selectedOverlay;
 
-    public Field(GameObject prefab, GameObject possibleMoveOverlay, GameObject selectedOverlay, Vector2Int position)
+    private void Start()
     {
-        this.prefab = prefab;
-        this.position = position;
-        this.possibleMoveOverlay = possibleMoveOverlay;
-        this.selectedOverlay = selectedOverlay;
-
         SelectedOverlay(false);
         PossibleMoveOverlay(false);
+    }
+
+    public void SetPosition(Vector2Int vec)
+    {
+        position = vec;
     }
 
     public bool IsOccupied()
