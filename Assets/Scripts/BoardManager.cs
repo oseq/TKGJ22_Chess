@@ -6,13 +6,11 @@ public class Move
 {
     public Field from;
     public Field to;
-    public MoveAction moveAction;
 
-    public Move(Field from, Field to, MoveAction moveAction)
+    public Move(Field from, Field to)
     {
         this.from = from;
         this.to = to;
-        this.moveAction = moveAction;
     }
 }
 
@@ -27,9 +25,8 @@ public class BoardManager : MonoBehaviour
             result.Add(
                 new Move(
                     character.currentPosition,
-                    board.GetField(character.currentPosition.position + moveDirection.direction),
-                    moveDirection.moveAction
-                     )
+                    board.GetField(character.currentPosition.position + moveDirection.direction)
+                    )
                 );
         });
         return result;
