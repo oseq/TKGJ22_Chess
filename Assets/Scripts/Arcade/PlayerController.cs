@@ -90,6 +90,11 @@ public class PlayerController : MonoBehaviour
 
             BlockInput();
             playerHit.BlockInput();
+
+            foreach (var item in collision.contacts)
+            {
+                Debug.DrawRay(item.point, item.normal * 100, Color.red, 10f);
+            }
         }
     }
 
