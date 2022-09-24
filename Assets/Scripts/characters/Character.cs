@@ -30,20 +30,18 @@ public class MoveDirection
     }
 }
 
+public enum CharacterDirectionUnit: int {
+    Forward = 1,
+    Backward = -1
+}
+
 [System.Serializable]
 public abstract class Character : MonoBehaviour
 {
     // should be 1 or - 1 to determine which way this character faces
-    [SerializeField] public int forward;
+    [SerializeField] public CharacterDirectionUnit directionUnit;
     [SerializeField] public Field currentPosition;
     [SerializeField] public Player owner;
-
-    protected Character(int forward, Field currentPosition, Player owner)
-    {
-        this.forward = forward;
-        this.currentPosition = currentPosition;
-        this.owner = owner;
-    }
 
     // Trigger for being removed from the field.
     public void OnRemovedFromField()

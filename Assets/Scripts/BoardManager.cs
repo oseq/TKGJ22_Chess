@@ -21,12 +21,12 @@ public class BoardManager : MonoBehaviour
 
     public IEnumerable<Move> AvailableMoves(Character character)
     {
-        var result = new List<Move>();
+        var moves = new List<Move>();
         character.GetMoveDirections().ForEach(delegate(MoveDirection moveDirection)
         {
-            result.AddRange(extendMoveDirection(character, moveDirection));
+            moves.AddRange(extendMoveDirection(character, moveDirection));
         });
-        return result;
+        return moves;
     }
 
     private IEnumerable<Move> extendMoveDirection(Character character, MoveDirection moveDirection) {
@@ -47,10 +47,10 @@ public class BoardManager : MonoBehaviour
                 switch(validationResult)
                 {
                     case MoveValidationResult.ValidGo:
-                        moves.Append(validatedMove);
+                        moves.Add(validatedMove);
                         break;
                     case MoveValidationResult.ValidStop:
-                        moves.Append(validatedMove);
+                        moves.Add(validatedMove);
                         keepExtending = false;
                         break;
                     case MoveValidationResult.Invalid:
