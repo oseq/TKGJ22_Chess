@@ -2,22 +2,14 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-enum PossibleDirections
-{
-    Straight,
-    Diagonal,
-    All
-}
-
 
 public class SpecialActionController : MonoBehaviour
 {
-    public Vector3 _direction;
     public float   _velocity;
     public bool    _isJump;
     public Rigidbody _rb;
     public KeyCode _button;
-    private PossibleDirections _possibleDirection;
+    public SkillData SkillData;
 
     private void Awake()
     {
@@ -26,11 +18,10 @@ public class SpecialActionController : MonoBehaviour
 
     private void Update()
     {
-        checkSpecialAction();
-
+        CheckSpecialAction();
     }
 
-    private void checkSpecialAction()
+    private void CheckSpecialAction()
     {
         if (Input.GetKeyDown(_button))
         {
@@ -40,32 +31,25 @@ public class SpecialActionController : MonoBehaviour
 
     public void SpecialAction()
     {
-        float angle = Vector3.Angle(new Vector3(0.0f, 1.0f, 0.0f), new Vector3(_direction.x, _direction.y, 0.0f));
-        if (_direction.x < 0.0f)
-        {
-            angle = -angle;
-            angle = angle + 360;
-        }
-
-
-        switch (_possibleDirection) {
-            case PossibleDirections.Straight:
-
-                break;
-            case PossibleDirections.Diagonal:
-
-                break;
-            case PossibleDirections.All:
-
-                break;
-        }
-        _rb.AddForce(_direction.normalized * _velocity * Time.deltaTime, ForceMode.Impulse);
-        _rb.velocity = _direction.normalized * _velocity;
+        _rb.AddForce(getActionDirection().normalized * _velocity * Time.deltaTime, ForceMode.Impulse);
+        _rb.velocity = getActionDirection().normalized * _velocity;
     }
 
     public Vector3 getActionDirection()
     {
-        return new Vector3();
+        Vector3 CurrentDirection = _rb.velocity;
+        float MinDistance = float.MaxValue;
+        Vector3 MinVector = new Vector3();
+        foreach (Vector3 Vector in SkillData.PossibleMoves)
+        {
+            float Distance = Vector3.Distance(Vector.normalized, CurrentDirection.normalized);
+            if (Distance < MinDistance)
+            {
+                MinDistance = Distance;
+                MinVector = Vector;
+            }
+        }
+        return MinVector;
     }
 
 }
