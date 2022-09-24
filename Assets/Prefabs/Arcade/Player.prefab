@@ -129,6 +129,7 @@ GameObject:
   - component: {fileID: 8598515813661975060}
   - component: {fileID: 8598515813661975083}
   - component: {fileID: 9127521657689078003}
+  - component: {fileID: 8399016511159428929}
   m_Layer: 7
   m_Name: Player
   m_TagString: Untagged
@@ -245,8 +246,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _playerId: 0
-  _moveForce: 1000
-  _velocityLimit: 100
 --- !u!114 &9127521657689078003
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -259,10 +258,51 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 95f4c8bc1ed537b419c04e476d4a0d85, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _velocity: 20
-  _isJump: 0
   _rb: {fileID: 0}
   _button: 0
-  SkillData: {fileID: 11400000, guid: 92d856b4058d75f488ac283f1eede4cd, type: 2}
-  Cooldown: 0
-  CooldownRate: 0
+  _secondButton: 0
+  _playerData: {fileID: 0}
+  _actionButtonView: {fileID: 0}
+--- !u!114 &8399016511159428929
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8598515813661975057}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 74f71cebc7d304523ae68282b8409289, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  container:
+  - type: 0
+    limitMin: 0
+    limitMax: 1000
+    modifiers:
+    - type: 0
+      value: 1000
+  - type: 1
+    limitMin: 0
+    limitMax: 1000
+    modifiers:
+    - type: 0
+      value: 500
+  - type: 2
+    limitMin: 0
+    limitMax: 1000
+    modifiers:
+    - type: 0
+      value: 1
+  - type: 3
+    limitMin: 0
+    limitMax: 1000
+    modifiers:
+    - type: 0
+      value: 5
+  - type: 4
+    limitMin: 0
+    limitMax: 1000
+    modifiers:
+    - type: 0
+      value: 1

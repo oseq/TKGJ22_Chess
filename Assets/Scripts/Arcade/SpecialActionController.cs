@@ -17,13 +17,12 @@ public class SpecialActionController : MonoBehaviour
     private PlayerData _playerData;
     [SerializeField]
     private ActionButtonView _actionButtonView;
+    [SerializeField]
+    private ActionButtonView _powerUpButtonView;
     private StatsContainer _stats;
     private Stat _cooldown;
     private Stat _cooldownRate;
     private float _timeToNextUse;
-    private Stat _secondaryCooldown;
-    private Stat _secondaryCooldownRate;
-    private float _secondaryTimeToNextUse;
 
     private void Awake()
     {
@@ -35,7 +34,7 @@ public class SpecialActionController : MonoBehaviour
         _cooldown.CreateModifier(StatModifier.Type.Additive, _playerData.Cooldown);
         _cooldownRate = _stats.GetStat(StatType.CooldownRate);
         _cooldownRate.CreateModifier(StatModifier.Type.Additive, _playerData.CooldownRate);
-        //add secondary
+        _powerUpButtonView.SetReady(false);
     }
 
     private void Update()
@@ -53,7 +52,7 @@ public class SpecialActionController : MonoBehaviour
         }
         if (Input.GetKeyDown(_secondButton))
         {
-            TryToPerformSecondaryAction();
+            SecondarySpecialAction();
         }
     }
 
@@ -67,7 +66,6 @@ public class SpecialActionController : MonoBehaviour
     public void SecondarySpecialAction()
     {
         
-        ScheduleCooldown();
     }
 
     private void TryToPerformAction()
@@ -80,10 +78,8 @@ public class SpecialActionController : MonoBehaviour
 
     private void TryToPerformSecondaryAction()
     {
-        if (_secondaryTimeToNextUse > 0)
-            return;
 
-        SecondarySpecialAction();
+        //SpecialAction();
     }
 
     public void ResetCooldown()
@@ -91,14 +87,10 @@ public class SpecialActionController : MonoBehaviour
         _timeToNextUse = 0f;
     }
 
-    public void ResetSecondaryCooldown()
-    {
-        _secondaryTimeToNextUse = 0f;
-    }
 
     private void ScheduleCooldown()
     {
-        _secondaryTimeToNextUse = _secondaryCooldown.GetValue();
+        _timeToNextUse = _cooldown.GetValue();
     }
 
     public Vector3 getActionDirection()
