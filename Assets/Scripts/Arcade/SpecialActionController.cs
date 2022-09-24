@@ -70,10 +70,10 @@ public class SpecialActionController : MonoBehaviour
 
     private void TryToPerformAction()
     {
-        if (_timeToNextUse > 0)
+        if (false)
             return;
 
-        SpecialAction();
+        SecondarySpecialAction();
     }
 
     private void TryToPerformSecondaryAction()

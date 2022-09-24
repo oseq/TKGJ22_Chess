@@ -7,16 +7,22 @@ public class TimeCounter : MonoBehaviour
     public event Action OnTimePassedOut = delegate { };
 
     [SerializeField]
-    private float timeRemaining = 30f;
+    private float _timeRemaining = 30f;
     [SerializeField]
-    private TMP_Text counterText;
+    private TMP_Text _counterText;
+    [SerializeField]
+    private StartPanelController startPanelController;
 
     private void Update()
     {
-        if (timeRemaining > 0f)
+        if (!startPanelController.HasCounterFinished)
         {
-            timeRemaining -= Time.deltaTime;
-            DisplayTime(timeRemaining);
+            return;
+        }
+        if (_timeRemaining > 0f)
+        {
+            _timeRemaining -= Time.deltaTime;
+            DisplayTime(_timeRemaining);
         }
         else
         {
@@ -31,6 +37,6 @@ public class TimeCounter : MonoBehaviour
     {
         float minutes = Mathf.FloorToInt(timeToDisplay / 60);
         float seconds = Mathf.FloorToInt(timeToDisplay % 60);
-        counterText.text = string.Format("{0:00}:{1:00}", minutes, seconds);
+        _counterText.text = string.Format("{0:00}:{1:00}", minutes, seconds);
     }
 }

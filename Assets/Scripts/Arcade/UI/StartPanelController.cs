@@ -16,6 +16,8 @@ public class StartPanelController : MonoBehaviour
     private float _maxScale = 1.5f;
     [SerializeField]
     private TMP_Text _startText;
+    
+    public bool HasCounterFinished { get; private set; }
 
     private void Start()
     {
@@ -37,7 +39,10 @@ public class StartPanelController : MonoBehaviour
             sequence.AppendCallback(() => _startText.text = nextText);
             sequence.Append(_startText.transform.DOScale(1f, _scaleDownAnimTime));
         }
+        sequence.AppendCallback(() => HasCounterFinished = true);
         sequence.Append(_startText.transform.DOScale(0f, _scaleUpAnimTime));
         sequence.SetUpdate(true);
+
+        
     }
 }
