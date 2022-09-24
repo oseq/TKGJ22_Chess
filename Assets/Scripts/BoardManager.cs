@@ -94,6 +94,10 @@ public class BoardManager : MonoBehaviour
 
         if (toField.IsOccupied())
         {
+            if (moveAction == MoveAction.Move)
+            {
+                return MoveValidationResult.Invalid;
+            }
             return toField.GetCharacter().owner != character.owner
                 ? MoveValidationResult.ValidStop
                 : MoveValidationResult.Invalid;

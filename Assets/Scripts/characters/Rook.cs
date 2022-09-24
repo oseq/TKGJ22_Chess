@@ -15,10 +15,10 @@ public class Rook : Character
     {
         return new List<MoveDirection>
         {
-            new(new Vector2Int(0, (int)directionUnit), MoveAction.Move, MoveType.Continuous),
-            new(new Vector2Int(0, -(int)directionUnit), MoveAction.Move, MoveType.Continuous),
-            new(new Vector2Int(1, 0), MoveAction.Move, MoveType.Continuous),
-            new(new Vector2Int(-1, 0), MoveAction.Move, MoveType.Continuous)
+            new(new Vector2Int(0, (int)directionUnit), MoveAction.AttackMove, MoveType.Continuous),
+            new(new Vector2Int(0, -(int)directionUnit), MoveAction.AttackMove, MoveType.Continuous),
+            new(new Vector2Int(1, 0), MoveAction.AttackMove, MoveType.Continuous),
+            new(new Vector2Int(-1, 0), MoveAction.AttackMove, MoveType.Continuous)
         };
     }
 }
