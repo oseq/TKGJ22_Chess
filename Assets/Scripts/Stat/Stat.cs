@@ -9,10 +9,10 @@ using ModifiersMap = System.Collections.Generic.Dictionary<StatModifier.Type, Sy
 [Serializable]
 public class Stat
 {
-    private struct Cache
+    private class Cache
     {
-        public bool dirty;
-        public float value;
+        public bool dirty = true;
+        public float value = 0.0f;
     }
 
     [SerializeField] private StatType type;
@@ -24,7 +24,7 @@ public class Stat
 
     //private readonly ModifiersMap modifiers = new ModifiersMap();
 
-    private Cache cache;
+    private Cache cache = new Cache();
 
     public StatType Type => type;
 
