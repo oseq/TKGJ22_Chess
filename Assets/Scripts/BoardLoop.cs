@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Transactions;
 using UnityEngine;
 
 public class BoardLoop : MonoBehaviour
@@ -22,6 +23,7 @@ public class BoardLoop : MonoBehaviour
         Previous,
         Next,
         Accept,
+        Reject, // go back, if possible
         None // default callback
     }
 
@@ -72,6 +74,12 @@ public class BoardLoop : MonoBehaviour
                     break;
                 case InputResult.Accept:
                     _selectedCharacter = _currentSelection.Selection();
+                    if (_selectedCharacter == null)
+                    {
+                        // nothing to select
+                        break;
+                    }
+
                     _currentSelection = null;
                     _stateMachine.Next();
                     break;
@@ -86,7 +94,7 @@ public class BoardLoop : MonoBehaviour
 
         if (currentState is State.Player1SelectingMove or State.Player2SelectingMove && _currentSelection == null)
         {
-            var possible = boardManager.PossibleMoves(_selectedCharacter);
+            var possible = boardManager.PossibleMoves(_selectedCharacter).ToList();
             _currentSelection = new SelectableFieldList(possible.OrderBy(x => x.position.y)
                 .ThenBy(x => x.position.x).ToList());
 
@@ -98,6 +106,10 @@ public class BoardLoop : MonoBehaviour
             var input = HandleTestInput();
             switch (input)
             {
+                case InputResult.Reject:
+                    _currentSelection = null;
+                    _stateMachine.Rollback();
+                    break;
                 case InputResult.Previous:
                     _currentSelection.Previous();
                     break;
@@ -165,6 +177,7 @@ public class BoardLoop : MonoBehaviour
     // KeyCode.Q => previous field
     // KeyCode.W => next field
     // KeyCode.A => accept
+    // KeyCode.S => cancel; this is possible only within the same state in the machine
     private static InputResult HandleTestInput()
     {
         if (Input.GetKeyDown(KeyCode.W))
@@ -182,6 +195,11 @@ public class BoardLoop : MonoBehaviour
             return InputResult.Accept;
         }
 
+        if (Input.GetKeyDown(KeyCode.S))
+        {
+            return InputResult.Reject;
+        }
+
         return InputResult.None;
     }
 
@@ -190,10 +208,24 @@ public class BoardLoop : MonoBehaviour
         private State _previousState;
         private State _currentState;
 
+        private StateMachine _rollback; // up to one rollback possible :( 
+
         public StateMachine()
         {
             _previousState = State.Start;
             _currentState = State.Start;
+        }
+
+        public void Rollback()
+        {
+            if (_rollback == null)
+            {
+                throw new InvalidOperationException();
+            }
+
+            _previousState = _rollback._previousState;
+            _currentState = _rollback._currentState;
+            _rollback = null;
         }
 
         public State Current()
@@ -208,6 +240,12 @@ public class BoardLoop : MonoBehaviour
 
         public void Next()
         {
+            _rollback = new StateMachine // save the current state for potential rollback
+            {
+                _currentState = _currentState,
+                _previousState = _previousState
+            };
+
             switch (_currentState)
             {
                 case State.Start:
@@ -239,8 +277,6 @@ public class BoardLoop : MonoBehaviour
                     _currentState = State.Player1SelectingCharacter;
                     return;
             }
-
-            // Debug.Log($"New state: prev: ${_previousState}, new: ${_currentState}");
         }
     }
 
@@ -290,15 +326,13 @@ public class BoardLoop : MonoBehaviour
         private void PreAction()
         {
             var selection = Selection();
-            if (selection != null)
-            {
-                Selection().PossibleSelect();
-            }
+            if (selection != null) Selection().PossibleSelect();
         }
 
         private void Apply()
         {
-            Selection().Select();
+            var selection = Selection();
+            if (selection != null) Selection().Select();
         }
     }
 }
