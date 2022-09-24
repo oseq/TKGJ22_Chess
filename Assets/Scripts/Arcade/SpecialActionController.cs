@@ -12,6 +12,9 @@ public class SpecialActionController : MonoBehaviour
     public SkillData SkillData;
     public float Cooldown;
     public float CooldownRate;
+    private float _cooldown;
+    private float _timeToNextUse;
+    private float _cooldownRate;
 
     private void Awake()
     {
@@ -21,13 +24,15 @@ public class SpecialActionController : MonoBehaviour
     private void Update()
     {
         CheckSpecialAction();
+        _timeToNextUse -= Time.deltaTime * _cooldownRate;
+       
     }
 
     private void CheckSpecialAction()
     {
         if (Input.GetKeyDown(_button))
         {
-            SpecialAction();
+            TryToPerformAction();
         }
     }
 
@@ -35,6 +40,25 @@ public class SpecialActionController : MonoBehaviour
     {
         _rb.AddForce(getActionDirection().normalized * _velocity * Time.deltaTime, ForceMode.Impulse);
         _rb.velocity = getActionDirection().normalized * _velocity;
+        ScheduleCooldown();
+    }
+
+    private void TryToPerformAction()
+    {
+        if (_timeToNextUse > 0)
+            return;
+
+        SpecialAction();
+    }
+
+    public void ResetCooldown()
+    {
+        _timeToNextUse = 0f;
+    }
+
+    private void ScheduleCooldown()
+    {
+        _timeToNextUse = Cooldown;
     }
 
     public Vector3 getActionDirection()
