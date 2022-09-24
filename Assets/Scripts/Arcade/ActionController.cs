@@ -8,13 +8,15 @@ public class ActionController : MonoBehaviour
     [SerializeField]
     private float _cooldown;
 
-    private float _nextUseTime;
+    private float _timeToNextUse;
+    private float _cooldownRate;
+   
 
     private float Cooldown => _cooldown;    //get modifiers from stats
 
     private void TryToPerformAction()
     {
-        if (_nextUseTime >= Time.time)
+        if (_timeToNextUse > 0)
             return;
 
         OnActionPerform?.Invoke();
@@ -27,6 +29,11 @@ public class ActionController : MonoBehaviour
 
     private void ScheduleCooldown()
     {
-        _nextUseTime = Time.time + Cooldown;
+        _timeToNextUse = Cooldown;
+    }
+
+    public void Update()
+    {
+        _timeToNextUse -= Time.deltaTime * 
     }
 }

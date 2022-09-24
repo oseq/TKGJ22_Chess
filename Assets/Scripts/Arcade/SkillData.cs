@@ -16,4 +16,7 @@ public class SkillData : ScriptableObject
         new Vector3(-1,0,1)
     };
 
+    public float Cooldown;
+    public float CooldownRate;
+
 }

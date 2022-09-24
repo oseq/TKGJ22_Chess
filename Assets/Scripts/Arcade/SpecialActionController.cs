@@ -10,6 +10,8 @@ public class SpecialActionController : MonoBehaviour
     public Rigidbody _rb;
     public KeyCode _button;
     public SkillData SkillData;
+    public float Cooldown;
+    public float CooldownRate;
 
     private void Awake()
     {
