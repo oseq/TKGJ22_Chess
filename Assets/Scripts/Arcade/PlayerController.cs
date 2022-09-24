@@ -7,12 +7,13 @@ public class PlayerController : MonoBehaviour
 {
     [SerializeField]
     private int _playerId;
-    [SerializeField]
-    private float _moveForce = 10f;
-    [SerializeField]
-    private float _velocityLimit = 3f;
+
+    private Stat _speed;
+    private Stat _speedLimit;
 
     private Rigidbody _rb;
+    private StatsContainer _sc;
+
     private string _horizontalString;
     private string _verticalString;
     private float _inputUnlockedTime;
@@ -26,6 +27,10 @@ public class PlayerController : MonoBehaviour
     private void Awake()
     {
         _rb = GetComponent<Rigidbody>();
+
+        _sc = GetComponent<StatsContainer>();
+        _speed = _sc.GetStat(StatType.Speed);
+        _speedLimit = _sc.GetStat(StatType.SpeedLimit);
         _horizontalString = $"Horizontal{_playerId}";
         _verticalString = $"Vertical{_playerId}";
     }
@@ -42,23 +47,23 @@ public class PlayerController : MonoBehaviour
 
         Vector3 moveDir = new Vector3(Input.GetAxisRaw(_horizontalString), 0f, Input.GetAxisRaw(_verticalString));
 
-        _rb.AddForce(moveDir * _moveForce * Time.fixedDeltaTime, ForceMode.Force);
+        _rb.AddForce(moveDir * _speed.GetValue() * Time.fixedDeltaTime, ForceMode.Force);
         _rb.velocity = ClampVelocity(_rb.velocity);
     }
 
     private Vector3 ClampVelocity(Vector3 velocity)
     {
-        if (Mathf.Abs(velocity.x) > _velocityLimit)
+        if (Mathf.Abs(velocity.x) > _speedLimit.GetValue())
         {
-            velocity.x = _velocityLimit * Mathf.Sign(velocity.x);
+            velocity.x = _speedLimit.GetValue() * Mathf.Sign(velocity.x);
         }
-        if (Mathf.Abs(velocity.y) > _velocityLimit)
+        if (Mathf.Abs(velocity.y) > _speedLimit.GetValue())
         {
-            velocity.y = _velocityLimit * Mathf.Sign(velocity.y);
+            velocity.y = _speedLimit.GetValue() * Mathf.Sign(velocity.y);
         }
-        if (Mathf.Abs(velocity.x) > _velocityLimit)
+        if (Mathf.Abs(velocity.x) > _speedLimit.GetValue())
         {
-            velocity.z = _velocityLimit * Mathf.Sign(velocity.z);
+            velocity.z = _speedLimit.GetValue() * Mathf.Sign(velocity.z);
         }
 
         return velocity;
