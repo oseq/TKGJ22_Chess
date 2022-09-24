@@ -13,6 +13,9 @@ public class PlayerController : MonoBehaviour
 
     private Rigidbody _rb;
     private StatsContainer _sc;
+    [SerializeField]
+    private MeshFilter _pieceType;
+  
 
     private float _inputUnlockedTime;
 
@@ -38,6 +41,32 @@ public class PlayerController : MonoBehaviour
     private void Update()
     {
         RefreshIndicator();
+    }
+
+    public void SetPieceType(PieceType type)
+    {
+        switch (type)
+        {
+            case PieceType.Bishop:
+              
+                break;
+            case PieceType.King:
+
+                break;
+            case PieceType.Knight:
+
+                break;
+            case PieceType.Pawn:
+
+                break;
+            case PieceType.Queen:
+
+                break;
+            case PieceType.Rook:
+
+                break;
+   
+        }
     }
 
     private void FixedUpdate()

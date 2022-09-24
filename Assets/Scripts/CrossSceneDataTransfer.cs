@@ -4,7 +4,7 @@ using UnityEngine;
 
 public static class CrossSceneDataTransfer
 {
-    public static Character OffensivePlayer;
-    public static Character DeffensivePlayer;
+    public static PieceType OffensivePlayer;
+    public static PieceType DeffensivePlayer;
     public static bool OffsensivePlayerWon;
 }

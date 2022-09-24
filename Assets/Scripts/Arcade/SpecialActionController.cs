@@ -52,6 +52,11 @@ public class SpecialActionController : MonoBehaviour
         _actionButtonView.UpdateTimer(_timeToNextUse, _cooldown.GetValue());
     }
 
+    public void SetPieceType(PieceData type)
+    {
+        _playerData = type;
+    }
+
     private void CheckSpecialAction()
     {
         if (Input.GetKeyDown(_button))
