@@ -1,18 +1,37 @@
 using System;
 using System.Linq;
 using UnityEngine;
+using System.Collections.Generic;
 
-public enum AttackType
+public class Move
 {
+    public Field from;
+    public Field to;
+
+    public Move(Field from, Field to)
+    {
+        this.from = from;
+        this.to = to;
+    }
 }
 
 public class BoardManager : MonoBehaviour
 {
     [SerializeField] private Board board;
 
-    public Tuple<Vector2Int, AttackType>[] AvailableMoves(Field field)
+    public IEnumerable<Move> AvailableMoves(Character character)
     {
-        throw new NotImplementedException();
+        var result = new List<Move>();
+        character.GetMoveDirections().ForEach(delegate(MoveDirection moveDirection)
+        {
+            result.Add(
+                new Move(
+                    character.currentPosition,
+                    board.CurrentState().GetField(character.currentPosition.position + moveDirection.direction)
+                )
+            );
+        });
+        return result;
     }
 
     // player has selected the field, show possible movements (turn on the proper overlay)
@@ -29,9 +48,9 @@ public class BoardManager : MonoBehaviour
 
         var selected = currentState.GetField(selectedField);
         selected.SelectedOverlay(true);
-        var possibleMoves = AvailableMoves(selected);
+        var possibleMoves = AvailableMoves(selected.GetCharacter());
 
-        var toMark = currentState.GetFields(possibleMoves.Select(x => x.Item1));
+        var toMark = possibleMoves.Select(move => move.to);
         foreach (var field in toMark)
         {
             field.PossibleMoveOverlay(true);
