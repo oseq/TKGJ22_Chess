@@ -39,4 +39,5 @@ public class TimeCounter : MonoBehaviour
         float seconds = Mathf.FloorToInt(timeToDisplay % 60);
         _counterText.text = string.Format("{0:00}:{1:00}", minutes, seconds);
     }
+
 }
