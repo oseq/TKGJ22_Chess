@@ -1,10 +1,11 @@
 ﻿using DG.Tweening;
-using System;
 using TMPro;
 using UnityEngine;
 
-public class StartTextController : MonoBehaviour
+public class StartPanelController : MonoBehaviour
 {
+    [SerializeField]
+    private CanvasGroup _content;
     [SerializeField]
     private string[] _textsToShowArray;
     [SerializeField]
@@ -13,13 +14,11 @@ public class StartTextController : MonoBehaviour
     private float _scaleDownAnimTime = 0.8f;
     [SerializeField]
     private float _maxScale = 1.5f;
-
+    [SerializeField]
     private TMP_Text _startText;
 
     private void Start()
     {
-        _startText = GetComponent<TMP_Text>();
-
         if (_textsToShowArray.Length == 0)
             return;
 
@@ -39,5 +38,6 @@ public class StartTextController : MonoBehaviour
             sequence.Append(_startText.transform.DOScale(1f, _scaleDownAnimTime));
         }
         sequence.Append(_startText.transform.DOScale(0f, _scaleUpAnimTime));
+        sequence.SetUpdate(true);
     }
 }

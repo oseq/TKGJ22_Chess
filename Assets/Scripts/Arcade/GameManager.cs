@@ -1,4 +1,5 @@
-﻿using System;
+﻿using DG.Tweening;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -13,6 +14,10 @@ public class GameManager : MonoBehaviour
     private FallDetector _fallDetector;
     [SerializeField]
     private TimeCounter _timeCounter;
+    [SerializeField]
+    private SummaryPanelController _summaryPanel;
+
+    private bool isPlayingFinishAnimation = false;
 
     private void Awake()
     {
@@ -26,10 +31,14 @@ public class GameManager : MonoBehaviour
         _timeCounter.OnTimePassedOut -= OnTimePassedOut;
     }
 
+    private void Start()
+    {
+        Time.timeScale = 1f;
+    }
+
     private void Update()
     {
         TryToRestart();
-        
     }
 
     private void InitializeGameplay()
@@ -47,16 +56,38 @@ public class GameManager : MonoBehaviour
 
     private void OnPlayerFelt(PlayerController playerFelt)
     {
-        RestartScene();
+        Debug.Log("Player felt out");
+        FinishAnimation(3 - playerFelt.PlayerId);
     }
 
     private void OnTimePassedOut()
     {
-        throw new NotImplementedException();
+        Debug.Log("Time passed out");
+        FinishAnimation(1);
     }
 
     private void RestartScene()
     {
+        Time.timeScale = 1f;
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+    }
+
+    private void FinishAnimation(int playerWhoWon)
+    {
+        if (isPlayingFinishAnimation)
+            return;
+
+        isPlayingFinishAnimation = true;
+
+        var sequence = DOTween.Sequence();
+        Time.timeScale = .25f;
+
+        //sequence.Append(DOTween.To(() => Time.timeScale, x => Time.timeScale = x, 0.25f, 0.5f).SetEase(Ease.InQuad).SetUpdate(true));
+        sequence.SetUpdate(true);
+        //sequence.AppendInterval(.5f);
+        sequence.AppendInterval(1f);
+        sequence.AppendCallback(() => _summaryPanel.ShowText(playerWhoWon.ToString()));
+        sequence.AppendInterval(2f);
+        sequence.AppendCallback(() => RestartScene());
     }
 }

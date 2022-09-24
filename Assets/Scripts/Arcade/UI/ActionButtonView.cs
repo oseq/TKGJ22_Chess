@@ -5,6 +5,8 @@ using UnityEngine.UI;
 public class ActionButtonView : MonoBehaviour
 {
     [SerializeField]
+    private bool _hasTimer;
+    [SerializeField]
     private GameObject _cooldownContainer;
     [SerializeField]
     private Image _cooldownImage;
@@ -13,16 +15,26 @@ public class ActionButtonView : MonoBehaviour
     [SerializeField]
     private GameObject _readyContainer;
 
+    private void Start()
+    {
+        _cooldownText.gameObject.SetActive(_hasTimer);
+    }
+
     public void UpdateTimer(float timeLeft, float cooldownTime)
     {
-        bool isReady = timeLeft <= 0f;
+        bool isReady = timeLeft <= float.Epsilon;
         _cooldownContainer.gameObject.SetActive(!isReady);
         _readyContainer.gameObject.SetActive(isReady);
 
         if (!isReady)
         {
-            _cooldownImage.fillAmount = timeLeft / cooldownTime;
-            _cooldownText.text = timeLeft.ToString();
+            _cooldownImage.fillAmount = 1f - timeLeft / cooldownTime;
+            _cooldownText.text = Mathf.Ceil(timeLeft).ToString();
         }
+    }
+
+    public void SetReady(bool isReady)
+    {
+        UpdateTimer(isReady ? 0f : 1f, 1f);
     }
 }
