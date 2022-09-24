@@ -1,12 +1,19 @@
 ﻿using System;
 using UnityEngine;
 
-
-[Serializable]
+[CreateAssetMenu(fileName="NewForceFielPowerUp")]
 public class ForceFieldPowerUp : IPowerUpAction
 {
-    public void Perform(IPowerUpAction.Context context)
+    public float range;
+    public float force;
+
+    public override void Perform(IPowerUpAction.Context context)
     {
         Debug.Log("Boom!");
+    }
+
+    public override void Detached(Context context)
+    {
+        
     }
 }
