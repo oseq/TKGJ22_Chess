@@ -1,3 +1,4 @@
+using DG.Tweening;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -19,6 +20,12 @@ public class SpecialActionController : MonoBehaviour
     private ActionButtonView _actionButtonView;
     [SerializeField]
     private ActionButtonView _powerUpButtonView;
+
+    [SerializeField]
+    private TrailRenderer _trailRenderer;
+    [SerializeField]
+    private float _trailRendererTime = .5f;
+
     private StatsContainer _stats;
     private Stat _cooldown;
     private Stat _cooldownRate;
@@ -35,6 +42,7 @@ public class SpecialActionController : MonoBehaviour
         _cooldownRate = _stats.GetStat(StatType.CooldownRate);
         _cooldownRate.CreateModifier(StatModifier.Type.Additive, _playerData.CooldownRate);
         _powerUpButtonView.SetReady(false);
+        _trailRenderer.emitting = false;
     }
 
     private void Update()
@@ -66,6 +74,9 @@ public class SpecialActionController : MonoBehaviour
         _rb.AddForce(getActionDirection().normalized * _velocity * Time.deltaTime, ForceMode.Impulse);
         _rb.velocity = getActionDirection().normalized * _velocity;
         ScheduleCooldown();
+
+        _trailRenderer.emitting = true;
+        DOVirtual.DelayedCall(_trailRendererTime, () => _trailRenderer.emitting = false);
     }
 
     public void SecondarySpecialAction()
