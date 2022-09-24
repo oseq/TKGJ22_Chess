@@ -15,10 +15,10 @@ public class Bishop : Character
     {
         return new List<MoveDirection>
         {
-            new(new Vector2Int(1, (int)directionUnit), MoveAction.Move, MoveType.Continuous),
-            new(new Vector2Int(-1, (int)directionUnit), MoveAction.Move, MoveType.Continuous),
-            new(new Vector2Int(1, -(int)directionUnit ), MoveAction.Move, MoveType.Continuous),
-            new(new Vector2Int(-1, -(int)directionUnit), MoveAction.Move, MoveType.Continuous)
+            new(new Vector2Int(1, (int)directionUnit), MoveAction.AttackMove, MoveType.Continuous),
+            new(new Vector2Int(-1, (int)directionUnit), MoveAction.AttackMove, MoveType.Continuous),
+            new(new Vector2Int(1, -(int)directionUnit ), MoveAction.AttackMove, MoveType.Continuous),
+            new(new Vector2Int(-1, -(int)directionUnit), MoveAction.AttackMove, MoveType.Continuous)
         };
     }
 }
