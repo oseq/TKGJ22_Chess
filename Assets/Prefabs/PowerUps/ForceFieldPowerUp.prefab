@@ -15,7 +15,7 @@ GameObject:
   - component: {fileID: -5568267065863660265}
   - component: {fileID: -8878378619472743816}
   m_Layer: 0
-  m_Name: SpeedPowerUp
+  m_Name: ForceFieldPowerUp
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -49,9 +49,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   powerUpQuery:
-  - {fileID: 11400000, guid: a67302de4fa2a49afbaf5015d981b5bb, type: 2}
-  - {fileID: 11400000, guid: 4ed583fde0b79489bb4d09e34fa9daaf, type: 2}
-  - {fileID: 11400000, guid: f950f8d43058942d288ba3c5dd57473b, type: 2}
+  - {fileID: 11400000, guid: 31e102465236f4d8e9f3dc13d671ddc9, type: 2}
   loot: {fileID: 0}
   OnLootGenerated:
     m_PersistentCalls:

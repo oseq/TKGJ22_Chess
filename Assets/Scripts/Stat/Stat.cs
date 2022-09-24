@@ -4,7 +4,6 @@ using UnityEngine;
 using UnityEngine.Events;
 
 using Modifiers = System.Collections.Generic.List<StatModifier>;
-using ModifiersMap = System.Collections.Generic.Dictionary<StatModifier.Type, System.Collections.Generic.List<StatModifier>>;
 
 [Serializable]
 public class Stat

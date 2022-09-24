@@ -1,14 +1,14 @@
 using UnityEngine;
+using UnityEngine.Events;
 
+[CreateAssetMenu(fileName = "PowerUp")]
 public class PowerUpContainer : MonoBehaviour
 {
     [SerializeField] private PowerUp[] powerUpQuery;
     [SerializeField] private PowerUp loot;
 
-    private void Start()
-    {
-        Generate();
-    }
+    public UnityEvent OnLootGenerated = new UnityEvent();
+    public UnityEvent OnLootConsumed = new UnityEvent();
 
     public void Generate()
     {
@@ -16,10 +16,14 @@ public class PowerUpContainer : MonoBehaviour
 
         var index = rng.Next(powerUpQuery.Length);
         loot = powerUpQuery[index];
+
+        OnLootGenerated.Invoke();
     }
 
     public PowerUp Consume()
     {
+        OnLootConsumed.Invoke();
+
         var tmp = loot;
         loot = null;
         return tmp;
