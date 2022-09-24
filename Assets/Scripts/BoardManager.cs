@@ -1,16 +1,37 @@
 using System;
 using UnityEngine;
+using System.Collections.Generic;
 
-public enum AttackType
+public class Move
 {
+    public Field from;
+    public Field to;
+    public MoveAction moveAction;
+
+    public Move(Field from, Field to, MoveAction moveAction)
+    {
+        this.from = from;
+        this.to = to;
+        this.moveAction = moveAction;
+    }
 }
 
 public class BoardManager : MonoBehaviour
 {
     [SerializeField] private Board board;
 
-    public Tuple<Vector2Int, AttackType>[] AvailableMoves(Character character)
+    public List<Move> AvailableMoves(Character character)
     {
-        throw new NotImplementedException();
+        List<Move> result = new List<Move>();
+        character.GetMoveDirections().ForEach(delegate(MoveDirection moveDirection) {
+            result.Add(
+                new Move(
+                    character.currentPosition,
+                    board.GetField(character.currentPosition.position + moveDirection.direction),
+                    moveDirection.moveAction
+                     )
+                );
+        });
+        return result;
     }
 }

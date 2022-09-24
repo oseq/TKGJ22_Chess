@@ -52,6 +52,11 @@ public class Board : MonoBehaviour
         CreateGrid();
     }
 
+    public Field GetField(Vector2Int position)
+    {
+        return fields[position[0] * columns + position[1]];
+    }
+
     private void CreateGrid()
     {
         fields = new Field[columns * rows];
