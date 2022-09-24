@@ -14,7 +14,7 @@ public class SpecialActionController : MonoBehaviour
     [SerializeField]
     private KeyCode _secondButton;
     [SerializeField]
-    private PlayerData _playerData;
+    private PieceData _playerData;
     [SerializeField]
     private ActionButtonView _actionButtonView;
     [SerializeField]
