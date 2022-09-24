@@ -123,6 +123,39 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
+--- !u!1 &16367073 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 1435986092951593172, guid: d8bec73f7c8fe4d4191e773c6f1230c1,
+    type: 3}
+  m_PrefabInstance: {fileID: 7258031479521697548}
+  m_PrefabAsset: {fileID: 0}
+--- !u!54 &16367075 stripped
+Rigidbody:
+  m_CorrespondingSourceObject: {fileID: 1435986092951593169, guid: d8bec73f7c8fe4d4191e773c6f1230c1,
+    type: 3}
+  m_PrefabInstance: {fileID: 7258031479521697548}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &16367080
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 16367073}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 95f4c8bc1ed537b419c04e476d4a0d85, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _velocity: 10
+  _isJump: 0
+  _rb: {fileID: 16367075}
+  _button: 13
+  _possibleDirection:
+  - {x: 1, y: 0, z: 0}
+  - {x: -1, y: 0, z: 0}
+  - {x: 0, y: 0, z: 1}
+  - {x: 0, y: 0, z: -1}
 --- !u!1001 &281446404
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -330,6 +363,36 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: cb480560ded08c242bf556360dad061c, type: 3}
+--- !u!1 &1627220010 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 2263244612058527169, guid: 4e4e9e978d372324ba87a6c1cd20c441,
+    type: 3}
+  m_PrefabInstance: {fileID: 23779634695729555}
+  m_PrefabAsset: {fileID: 0}
+--- !u!54 &1627220012 stripped
+Rigidbody:
+  m_CorrespondingSourceObject: {fileID: 2263244612058527172, guid: 4e4e9e978d372324ba87a6c1cd20c441,
+    type: 3}
+  m_PrefabInstance: {fileID: 23779634695729555}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &1627220017
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1627220010}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 95f4c8bc1ed537b419c04e476d4a0d85, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _velocity: 15
+  _isJump: 0
+  _rb: {fileID: 1627220012}
+  _button: 32
+  _possibleDirection:
+  - {x: 0, y: 0, z: 0}
 --- !u!1 &1686815128
 GameObject:
   m_ObjectHideFlags: 0
