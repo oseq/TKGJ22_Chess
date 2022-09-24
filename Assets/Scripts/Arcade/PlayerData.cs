@@ -1,8 +1,8 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-[CreateAssetMenu(fileName = "SkillData")]
-public class SkillData : ScriptableObject
+[CreateAssetMenu(fileName = "PlayerData")]
+public class PlayerData : ScriptableObject
 {
     public Vector3[] PossibleMoves =
      {
@@ -18,5 +18,9 @@ public class SkillData : ScriptableObject
 
     public float Cooldown;
     public float CooldownRate;
+    public float SkillVelocity;
+    public float Velocity;
+    public float Jump;
+    public float Mass;
 
 }

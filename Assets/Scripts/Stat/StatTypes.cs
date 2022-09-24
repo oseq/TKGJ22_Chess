@@ -2,5 +2,6 @@
 {
     Speed,
     Mass,
-    Cooldown
+    Cooldown,
+    CooldownRate
 }
