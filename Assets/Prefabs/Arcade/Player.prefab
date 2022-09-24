@@ -247,7 +247,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _playerId: 0
-  indicator: {fileID: 5035338002566478165}
 --- !u!114 &9127521657689078003
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -266,6 +265,8 @@ MonoBehaviour:
   _playerData: {fileID: 0}
   _actionButtonView: {fileID: 0}
   _powerUpButtonView: {fileID: 0}
+  _trailRenderer: {fileID: 8383351412539012268}
+  _trailRendererTime: 0.5
 --- !u!114 &8399016511159428929
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -371,6 +372,12 @@ PrefabInstance:
 --- !u!4 &2463347501462036388 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 7263221610392685974, guid: d4df5c585be6c514598348ce39004fae,
+    type: 3}
+  m_PrefabInstance: {fileID: 5108124395035431474}
+  m_PrefabAsset: {fileID: 0}
+--- !u!96 &8383351412539012268 stripped
+TrailRenderer:
+  m_CorrespondingSourceObject: {fileID: 3653564592051725982, guid: d4df5c585be6c514598348ce39004fae,
     type: 3}
   m_PrefabInstance: {fileID: 5108124395035431474}
   m_PrefabAsset: {fileID: 0}
