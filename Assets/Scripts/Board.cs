@@ -35,8 +35,6 @@ public class Field
     }
 }
 
-// This is actually Board & Board Manager.
-// So it's up to the board to execute moves and making sure everything's fine.
 public class Board : MonoBehaviour
 {
     [SerializeField] private GameObject prefabWhite = null;
