@@ -18,6 +18,8 @@ public class PlayerData : ScriptableObject
 
     public float Cooldown;
     public float CooldownRate;
+    public float SecondaryCooldown;
+    public float SecondaryCooldownRate;
     public float SkillVelocity;
     public float Velocity;
     public float Jump;

@@ -12,6 +12,8 @@ public class SpecialActionController : MonoBehaviour
     [SerializeField]
     private KeyCode _button;
     [SerializeField]
+    private KeyCode _secondButton;
+    [SerializeField]
     private PlayerData _playerData;
     [SerializeField]
     private ActionButtonView _actionButtonView;
@@ -19,6 +21,9 @@ public class SpecialActionController : MonoBehaviour
     private Stat _cooldown;
     private Stat _cooldownRate;
     private float _timeToNextUse;
+    private Stat _secondaryCooldown;
+    private Stat _secondaryCooldownRate;
+    private float _secondaryTimeToNextUse;
 
     private void Awake()
     {
@@ -30,6 +35,7 @@ public class SpecialActionController : MonoBehaviour
         _cooldown.CreateModifier(StatModifier.Type.Additive, _playerData.Cooldown);
         _cooldownRate = _stats.GetStat(StatType.CooldownRate);
         _cooldownRate.CreateModifier(StatModifier.Type.Additive, _playerData.CooldownRate);
+        //add secondary
     }
 
     private void Update()
@@ -45,12 +51,22 @@ public class SpecialActionController : MonoBehaviour
         {
             TryToPerformAction();
         }
+        if (Input.GetKeyDown(_secondButton))
+        {
+            TryToPerformSecondaryAction();
+        }
     }
 
     public void SpecialAction()
     {
         _rb.AddForce(getActionDirection().normalized * _velocity * Time.deltaTime, ForceMode.Impulse);
         _rb.velocity = getActionDirection().normalized * _velocity;
+        ScheduleCooldown();
+    }
+
+    public void SecondarySpecialAction()
+    {
+        
         ScheduleCooldown();
     }
 
@@ -62,14 +78,27 @@ public class SpecialActionController : MonoBehaviour
         SpecialAction();
     }
 
+    private void TryToPerformSecondaryAction()
+    {
+        if (_secondaryTimeToNextUse > 0)
+            return;
+
+        SecondarySpecialAction();
+    }
+
     public void ResetCooldown()
     {
         _timeToNextUse = 0f;
     }
 
+    public void ResetSecondaryCooldown()
+    {
+        _secondaryTimeToNextUse = 0f;
+    }
+
     private void ScheduleCooldown()
     {
-        _timeToNextUse = _cooldown.GetValue();
+        _secondaryTimeToNextUse = _secondaryCooldown.GetValue();
     }
 
     public Vector3 getActionDirection()
