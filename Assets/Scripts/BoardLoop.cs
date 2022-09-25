@@ -45,7 +45,7 @@ public class BoardLoop : MonoBehaviour
     private void Start()
     {
         _stateMachine.Next();
-        camPlayerBlack.SetActive(false);
+        //camPlayerBlack.SetActive(false);
     }
 
     private bool CanKillKing(Player player)
@@ -219,6 +219,7 @@ public class BoardLoop : MonoBehaviour
 
         camPlayerWhite.SetActive(_isCameraIndicatingWhite);
         camPlayerBlack.SetActive(!_isCameraIndicatingWhite);
+
 
     }
     #endregion
