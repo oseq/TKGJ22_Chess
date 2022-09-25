@@ -25,6 +25,8 @@ public class SpecialActionController : MonoBehaviour
     private TrailRenderer _trailRenderer;
     [SerializeField]
     private float _trailRendererTime = .5f;
+    [SerializeField]
+    private ParticleSystem forceParticle;
 
     private StatsContainer _stats;
     private Stat _cooldown;
