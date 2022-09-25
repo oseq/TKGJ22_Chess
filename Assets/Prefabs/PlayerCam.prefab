@@ -106,7 +106,7 @@ GameObject:
   - component: {fileID: 68032612625578477}
   - component: {fileID: 68032612625578474}
   m_Layer: 0
-  m_Name: BlackPlayerCam
+  m_Name: PlayerCam
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

@@ -32,6 +32,9 @@ public class BoardLoop : MonoBehaviour
     [SerializeField] private Player player1;
     [SerializeField] private Player player2;
 
+    [SerializeField] private GameObject camPlayerWhite;
+    [SerializeField] private GameObject camPlayerBlack;
+
     private readonly StateMachine _stateMachine = new();
     private SelectableFieldList _currentSelection;
 
@@ -42,6 +45,7 @@ public class BoardLoop : MonoBehaviour
     private void Start()
     {
         _stateMachine.Next();
+        camPlayerBlack.SetActive(false);
     }
 
     private bool CanKillKing(Player player)
@@ -212,6 +216,10 @@ public class BoardLoop : MonoBehaviour
     {
         _isCameraIndicatingWhite ^= true;
         Debug.Log($"Camera swap. Is now indicating white? {_isCameraIndicatingWhite}");
+
+        camPlayerWhite.SetActive(_isCameraIndicatingWhite);
+        camPlayerBlack.SetActive(!_isCameraIndicatingWhite);
+
     }
     #endregion
 
