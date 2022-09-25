@@ -25,6 +25,8 @@ public class SpecialActionController : MonoBehaviour
     private TrailRenderer _trailRenderer;
     [SerializeField]
     private float _trailRendererTime = .5f;
+    [SerializeField]
+    private ParticleSystem forceParticle;
 
     private StatsContainer _stats;
     private Stat _cooldown;
@@ -86,13 +88,16 @@ public class SpecialActionController : MonoBehaviour
         {
             if(_currentPowerUp.onUse != null)
             {
-                IPowerUpAction.Context context;
-                context.instigator = gameObject;
+                IPowerUpAction.Context context = new()
+                {
+                    instigator = gameObject,
+                    effect = forceParticle
+                };
                 foreach (var action in _currentPowerUp.onUse)
                 {
                     action.Perform(context);
                 }
-
+                
                 _powerUpButtonView.SetReady(false);
                 _currentPowerUp = null;
             }
@@ -145,8 +150,10 @@ public class SpecialActionController : MonoBehaviour
     {
         if (other.CompareTag("Collectable"))
         {
-            IPowerUpAction.Context context;
-            context.instigator = gameObject;
+            IPowerUpAction.Context context = new()
+            {
+                instigator = gameObject
+            };
 
             if (_currentPowerUp)
             {
