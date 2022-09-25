@@ -13,7 +13,7 @@ public class ApplyStatModifierPowerUp : IPowerUpAction
     {
         if (context.onAttachTrail != null)
         {
-            context.onAttachTrail.TurnOnTrail();
+            context.onAttachTrail.TurnOnTrailPermanently();
         }
         var statContainer = context.instigator.GetComponent<StatsContainer>();
         modifier = statContainer.GetStat(stat).CreateModifier(modifierType, value);
@@ -23,5 +23,9 @@ public class ApplyStatModifierPowerUp : IPowerUpAction
     {
         var statContainer = (StatsContainer)context.instigator.GetComponent<StatsContainer>();
         statContainer.GetStat(stat).RemoveModifier(modifier);
+        if (context.onAttachTrail != null)
+        {
+            context.onAttachTrail.TurnOffTrail();
+        }
     }
 }

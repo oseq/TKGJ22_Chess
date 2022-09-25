@@ -42,6 +42,11 @@ public class BoardLoop : MonoBehaviour
     private Field _selectedMove;
     private bool _isFighting;
 
+    private PieceColor GetPlayerColor(Player player)
+    {
+        return player == player1 ? PieceColor.White : PieceColor.Black;
+    }
+
     private void Start()
     {
         _stateMachine = new StateMachine(this);
@@ -177,6 +182,10 @@ public class BoardLoop : MonoBehaviour
     private void RequestFight(Player attacker, Player defender)
     {
         _isFighting = true;
+        CrossSceneDataTransfer.OffensivePlayer = _selectedCharacter.GetCharacter().GetPieceType();
+        CrossSceneDataTransfer.DeffensivePlayer = _selectedMove.GetCharacter().GetPieceType();
+        CrossSceneDataTransfer.OffensivePlayerColor = GetPlayerColor(PlayerFromState());
+        CrossSceneDataTransfer.DeffensivePlayerColor = GetPlayerColor(PlayerFromState() == player1 ? player2 : player1);
         CrossSceneManager.Instance.RequestFight(attacker, defender, OnFightFinished);
     }
 
@@ -230,8 +239,8 @@ public class BoardLoop : MonoBehaviour
         {
             State.Player1SelectingCharacter or State.Player1SelectingMove => player1,
             State.Player2SelectingCharacter or State.Player2SelectingMove => player2,
-            State.Fight when _stateMachine.Previous() == State.Player1SelectingMove => player1,
-            State.Fight when _stateMachine.Previous() == State.Player2SelectingMove => player2,
+            State.Fight when _stateMachine.GetPrevious() == State.Player1SelectingMove => player1,
+            State.Fight when _stateMachine.GetPrevious() == State.Player2SelectingMove => player2,
             _ => null
         };
     }
@@ -297,7 +306,7 @@ public class BoardLoop : MonoBehaviour
             return _currentState;
         }
 
-        public State Previous()
+        public State GetPrevious()
         {
             return _previousState;
         }
