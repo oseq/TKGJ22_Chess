@@ -42,6 +42,9 @@ public class BoardLoop : MonoBehaviour
     private void Start()
     {
         _stateMachine.Next();
+
+        player1.playerColor = PieceColor.White;
+        player2.playerColor = PieceColor.Black;
     }
 
     private bool CanKillKing(Player player)
@@ -155,7 +158,7 @@ public class BoardLoop : MonoBehaviour
                 //{
                 //    _selectedMove.Occupy(attacker, _selectedCharacter.GetCharacter(), true);
                 //}
-                RequestFight(attacker, defender);
+                RequestFight(attacker, defender, _selectedCharacter, _selectedMove);
                 return;
             }
             else
@@ -168,11 +171,10 @@ public class BoardLoop : MonoBehaviour
         }
     }
 
-    // TODO: This will be the connection with arcade game, parameters might change
-    private void RequestFight(Player attacker, Player defender)
+    private void RequestFight(Player attacker, Player defender, Field from, Field to)
     {
         _isFighting = true;
-        CrossSceneManager.Instance.RequestFight(attacker, defender, OnFightFinished);
+        CrossSceneManager.Instance.RequestFight(attacker, defender, from, to, OnFightFinished);
     }
 
     private void OnFightFinished(Player winner)
@@ -194,10 +196,12 @@ public class BoardLoop : MonoBehaviour
             _selectedCharacter.Deoccupy();
             _stateMachine.Next();
         }
+
         _isFighting = false;
     }
 
     #region Camera
+
     private bool _isCameraIndicatingWhite = false;
 
     private void TryToSwapCamera()
@@ -213,6 +217,7 @@ public class BoardLoop : MonoBehaviour
         _isCameraIndicatingWhite ^= true;
         Debug.Log($"Camera swap. Is now indicating white? {_isCameraIndicatingWhite}");
     }
+
     #endregion
 
     private Player PlayerFromState()

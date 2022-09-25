@@ -30,6 +30,11 @@ public class Field : MonoBehaviour
         return character != null;
     }
 
+    public bool IsOccupiedByColor(PieceColor color)
+    {
+        return character != null && character.owner.playerColor == color;
+    }
+
     // Please notice you must put an initialized Character here  
     public bool Occupy(Player requester, Character ch, bool force)
     {

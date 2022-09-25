@@ -13,6 +13,10 @@ public class CrossSceneManager : MonoBehaviourSingleton<CrossSceneManager>
 
     private Player _storedAttacker;
     private Player _storedDefender;
+
+    private Field _storedFieldFrom;
+    private Field _storedFieldTo;
+
     private Action<Player> _storedFightCallback;
 
     private void Awake()
@@ -39,16 +43,26 @@ public class CrossSceneManager : MonoBehaviourSingleton<CrossSceneManager>
         }
     }
 
-    public void RequestFight(Player attacker, Player defender, Action<Player> fightCallback)
+    public void RequestFight(Player attacker, Player defender, Field from, Field to, Action<Player> fightCallback)
     {
         _storedAttacker = attacker;
         _storedDefender = defender;
         _storedFightCallback = fightCallback;
+        _storedFieldFrom = from;
+        _storedFieldTo = to;
         LoadArcadeScene();
     }
 
     public void FightFinished(bool hasAttackerWon)
     {
+        CrossSceneDataTransfer.DeffensivePlayer = PieceTypeUtils.Convert(_storedFieldTo.GetCharacter());
+        CrossSceneDataTransfer.DeffensivePlayerColor = _storedDefender.playerColor;
+
+        CrossSceneDataTransfer.OffensivePlayer = PieceTypeUtils.Convert(_storedFieldFrom.GetCharacter());
+        CrossSceneDataTransfer.OffensivePlayerColor = _storedAttacker.playerColor;
+
+        CrossSceneDataTransfer.OffsensivePlayerWon = _storedFieldTo.IsOccupiedByColor(_storedAttacker.playerColor);
+
         LoadStrategyScene();
         _storedFightCallback?.Invoke(hasAttackerWon ? _storedAttacker : _storedDefender);
     }
@@ -80,6 +94,7 @@ public class CrossSceneManager : MonoBehaviourSingleton<CrossSceneManager>
             SceneManager.UnloadSceneAsync(1);
             StrategyManager.ShowRoot();
         }
+
         ArcadeManager = null;
     }
 }
