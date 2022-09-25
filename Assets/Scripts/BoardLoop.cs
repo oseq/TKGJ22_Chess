@@ -52,6 +52,8 @@ public class BoardLoop : MonoBehaviour
         _stateMachine = new StateMachine(this);
         _stateMachine.Next();
         //camPlayerBlack.SetActive(false);
+        player1.playerColor = PieceColor.White;
+        player2.playerColor = PieceColor.Black;
     }
 
     private bool CanKillKing(Player player)
@@ -165,7 +167,7 @@ public class BoardLoop : MonoBehaviour
                 //{
                 //    _selectedMove.Occupy(attacker, _selectedCharacter.GetCharacter(), true);
                 //}
-                RequestFight(attacker, defender);
+                RequestFight(attacker, defender, _selectedCharacter, _selectedMove);
                 return;
             }
             else
@@ -178,15 +180,15 @@ public class BoardLoop : MonoBehaviour
         }
     }
 
-    // TODO: This will be the connection with arcade game, parameters might change
-    private void RequestFight(Player attacker, Player defender)
+    private void RequestFight(Player attacker, Player defender, Field from, Field to)
     {
         _isFighting = true;
         CrossSceneDataTransfer.OffensivePlayer = _selectedCharacter.GetCharacter().GetPieceType();
         CrossSceneDataTransfer.DeffensivePlayer = _selectedMove.GetCharacter().GetPieceType();
         CrossSceneDataTransfer.OffensivePlayerColor = GetPlayerColor(PlayerFromState());
         CrossSceneDataTransfer.DeffensivePlayerColor = GetPlayerColor(PlayerFromState() == player1 ? player2 : player1);
-        CrossSceneManager.Instance.RequestFight(attacker, defender, OnFightFinished);
+
+        CrossSceneManager.Instance.RequestFight(attacker, defender, from, to, OnFightFinished);
     }
 
     private void OnFightFinished(Player winner)
@@ -195,19 +197,13 @@ public class BoardLoop : MonoBehaviour
         if (currentState == State.Fight)
         {
             var attacker = PlayerFromState();
-            var defender = attacker == player1 ? player2 : player1;
             if (_selectedMove.IsOccupied() && winner == attacker)
             {
                 _selectedMove.Occupy(attacker, _selectedCharacter.GetCharacter(), true);
             }
-            else
-            {
-                _selectedMove.Occupy(PlayerFromState(), _selectedCharacter.GetCharacter(), false);
-            }
-
-            _selectedCharacter.Deoccupy();
             _stateMachine.Next();
         }
+
         _isFighting = false;
     }
 
@@ -231,6 +227,7 @@ public class BoardLoop : MonoBehaviour
         camPlayerBlack.SetActive(!_isCameraIndicatingWhite);
 
     }
+
     #endregion
 
     private Player PlayerFromState()
