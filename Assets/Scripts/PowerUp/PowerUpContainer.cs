@@ -1,7 +1,6 @@
 using UnityEngine;
 using UnityEngine.Events;
 
-[CreateAssetMenu(fileName = "PowerUp")]
 public class PowerUpContainer : MonoBehaviour
 {
     [SerializeField] private PowerUp[] powerUpQuery;

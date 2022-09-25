@@ -51,9 +51,10 @@ public class GameManager : MonoBehaviour
         TryToRestart();
     }
 
-    private void InitializeGameplay()
+    public void InitializeGameplay()
     {
-
+        var playerType1 = CrossSceneDataTransfer.OffensivePlayerColor == PieceColor.White ? CrossSceneDataTransfer.OffensivePlayer : CrossSceneDataTransfer.DeffensivePlayer;
+        var playerType2 = CrossSceneDataTransfer.OffensivePlayerColor != PieceColor.White ? CrossSceneDataTransfer.OffensivePlayer : CrossSceneDataTransfer.DeffensivePlayer;
     }
 
     private void TryToRestart()
@@ -73,7 +74,7 @@ public class GameManager : MonoBehaviour
     private void OnTimePassedOut()
     {
         Debug.Log("Time passed out");
-        FinishAnimation(1);
+        FinishAnimation(CrossSceneDataTransfer.DeffensivePlayerColor == PieceColor.White ? 1 : 2);
     }
 
     private void RestartScene()
@@ -92,12 +93,23 @@ public class GameManager : MonoBehaviour
         var sequence = DOTween.Sequence();
         Time.timeScale = .5f;
 
-        //sequence.Append(DOTween.To(() => Time.timeScale, x => Time.timeScale = x, 0.25f, 0.5f).SetEase(Ease.InQuad).SetUpdate(true));
         sequence.SetUpdate(true);
-        //sequence.AppendInterval(.5f);
         sequence.AppendInterval(1f);
         sequence.AppendCallback(() => _summaryPanel.ShowText(playerWhoWon.ToString()));
         sequence.AppendInterval(2f);
-        sequence.AppendCallback(() => RestartScene());
+        sequence.AppendCallback(() => RequestFinish(playerWhoWon));
+    }
+
+    private void RequestFinish(int winnerId)
+    {
+        if (CrossSceneManager.Instance.StrategyManager != null)
+        {
+            CrossSceneManager.Instance.FightFinished((CrossSceneDataTransfer.OffensivePlayerColor == PieceColor.White && winnerId == 1) || (CrossSceneDataTransfer.OffensivePlayerColor == PieceColor.Black && winnerId == 2));
+        }
+        else
+        {
+            //if didn't come from the strategy, just restart the scene
+            RestartScene();
+        }
     }
 }

@@ -17,8 +17,7 @@ public class PlayerController : MonoBehaviour
     private MeshFilter _playersPiece;
     [SerializeField]
     private MeshFilter[] _pieceTypes;
-    [SerializeField]
-    private ArcadeGameData arcadeGameData;
+    
 
     private SpecialActionController specialActionController;
     private bool isWhite;
@@ -36,8 +35,9 @@ public class PlayerController : MonoBehaviour
     public Rigidbody Rigidbody => _rb;
     public bool HasControl => _inputUnlockedTime <= Time.time;
     public InputController InputController => InputManager.Instance.GetInputController(PlayerId);
+    private ArcadeGameData ArcadeGameData => ArcadeGameData.Instance;
 
-    private void Awake()
+    private void Start()
     {
         specialActionController = GetComponent<SpecialActionController>();
 
@@ -46,13 +46,13 @@ public class PlayerController : MonoBehaviour
         {
             isWhite = CrossSceneDataTransfer.OffensivePlayerColor == PieceColor.White;
             SetPieceType(CrossSceneDataTransfer.OffensivePlayer);
-            specialActionController.SetPieceType(arcadeGameData.dictonary[CrossSceneDataTransfer.OffensivePlayer]);
+            specialActionController.SetPieceType(ArcadeGameData.Dictonary[CrossSceneDataTransfer.OffensivePlayer]);
             
         } else
         {
             isWhite = CrossSceneDataTransfer.DeffensivePlayerColor == PieceColor.White;
             SetPieceType(CrossSceneDataTransfer.DeffensivePlayer);
-            specialActionController.SetPieceType(arcadeGameData.dictonary[CrossSceneDataTransfer.DeffensivePlayer]);
+            specialActionController.SetPieceType(ArcadeGameData.Dictonary[CrossSceneDataTransfer.DeffensivePlayer]);
         }
         _rb = GetComponent<Rigidbody>();
         _sc = GetComponent<StatsContainer>();
@@ -71,22 +71,22 @@ public class PlayerController : MonoBehaviour
         switch (type)
         {
             case PieceType.Bishop:
-                _playersPiece = _pieceTypes[pieceNumber];
+                _playersPiece.mesh = _pieceTypes[pieceNumber].sharedMesh;
                 break;
             case PieceType.King:
-                _playersPiece = _pieceTypes[pieceNumber + 1];
+                _playersPiece.mesh = _pieceTypes[pieceNumber + 1].sharedMesh;
                 break;
             case PieceType.Knight:
-                _playersPiece = _pieceTypes[pieceNumber + 2];
+                _playersPiece.mesh = _pieceTypes[pieceNumber + 2].sharedMesh;
                 break;
             case PieceType.Pawn:
-                _playersPiece = _pieceTypes[pieceNumber + 3];
+                _playersPiece.mesh = _pieceTypes[pieceNumber + 3].sharedMesh;
                 break;
             case PieceType.Queen:
-                _playersPiece = _pieceTypes[pieceNumber + 4];
+                _playersPiece.mesh = _pieceTypes[pieceNumber + 4].sharedMesh;
                 break;
             case PieceType.Rook:
-                _playersPiece = _pieceTypes[pieceNumber + 5];
+                _playersPiece.mesh = _pieceTypes[pieceNumber + 5].sharedMesh;
                 break;
   
         }

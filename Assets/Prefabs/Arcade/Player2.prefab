@@ -99,6 +99,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8598515813661975083, guid: 8bbc5076e8e4668449da0962d37ef179,
         type: 3}
+      propertyPath: _playersPiece
+      value: 
+      objectReference: {fileID: 7258031480568604015}
+    - target: {fileID: 8598515813661975083, guid: 8bbc5076e8e4668449da0962d37ef179,
+        type: 3}
       propertyPath: _pieceTypes.Array.size
       value: 12
       objectReference: {fileID: 0}
@@ -253,3 +258,9 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 9d3e9c36668dcfe44b524760a4c3a3b5, type: 3}
+--- !u!33 &7258031480568604015 stripped
+MeshFilter:
+  m_CorrespondingSourceObject: {fileID: 3387380, guid: 9d3e9c36668dcfe44b524760a4c3a3b5,
+    type: 3}
+  m_PrefabInstance: {fileID: 7258031480567712411}
+  m_PrefabAsset: {fileID: 0}

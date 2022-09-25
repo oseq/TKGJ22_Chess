@@ -13,12 +13,20 @@ public class TimeCounter : MonoBehaviour
     [SerializeField]
     private StartPanelController startPanelController;
 
+    private bool _counterStopped = false;
+
+    private void Start()
+    {
+        DisplayTime(_timeRemaining);
+    }
+
     private void Update()
     {
-        if (!startPanelController.HasCounterFinished)
+        if (!startPanelController.HasCounterFinished || _counterStopped)
         {
             return;
         }
+
         if (_timeRemaining > 0f)
         {
             _timeRemaining -= Time.deltaTime;
@@ -27,6 +35,7 @@ public class TimeCounter : MonoBehaviour
         else
         {
             Debug.Log("Time has run out!");
+            _counterStopped = true;
             DisplayTime(0f);
 
             OnTimePassedOut?.Invoke();

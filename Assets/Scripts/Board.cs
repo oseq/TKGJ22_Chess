@@ -60,7 +60,7 @@ public class Board : MonoBehaviour
                 var arrPos = i * columns + j;
                 var prefab = Instantiate(
                     prefabField,
-                    new Vector3(i, 0, j) + transform.position,
+                    new Vector3(i * prefabWhite.transform.localScale.x, 0, j * prefabWhite.transform.localScale.z) + transform.position,
                     Quaternion.Euler(0f, 0f, 0f),
                     transform
                 );

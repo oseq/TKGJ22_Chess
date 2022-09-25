@@ -37,6 +37,7 @@ public class BoardLoop : MonoBehaviour
 
     private Field _selectedCharacter;
     private Field _selectedMove;
+    private bool _isFighting;
 
     private void Start()
     {
@@ -53,7 +54,7 @@ public class BoardLoop : MonoBehaviour
     private void Update()
     {
         var currentState = _stateMachine.Current();
-        if (currentState is State.Start)
+        if (currentState is State.Start || _isFighting)
         {
             // nothing to do.
             return;
@@ -147,10 +148,13 @@ public class BoardLoop : MonoBehaviour
             {
                 var attacker = PlayerFromState();
                 var defender = attacker == player1 ? player2 : player1;
-                if (DoFight(attacker, defender) == attacker)
-                {
-                    _selectedMove.Occupy(attacker, _selectedCharacter.GetCharacter(), true);
-                }
+
+                //if (RequestFight(attacker, defender) == attacker)
+                //{
+                //    _selectedMove.Occupy(attacker, _selectedCharacter.GetCharacter(), true);
+                //}
+                RequestFight(attacker, defender);
+                return;
             }
             else
             {
@@ -163,11 +167,33 @@ public class BoardLoop : MonoBehaviour
     }
 
     // TODO: This will be the connection with arcade game, parameters might change
-    private static Player DoFight(Player attacker, Player defender)
+    private void RequestFight(Player attacker, Player defender)
     {
-        return attacker;
+        _isFighting = true;
+        CrossSceneManager.Instance.RequestFight(attacker, defender, OnFightFinished);
     }
 
+    private void OnFightFinished(Player winner)
+    {
+        var currentState = _stateMachine.Current();
+        if (currentState == State.Fight)
+        {
+            var attacker = PlayerFromState();
+            var defender = attacker == player1 ? player2 : player1;
+            if (_selectedMove.IsOccupied() && winner == attacker)
+            {
+                _selectedMove.Occupy(attacker, _selectedCharacter.GetCharacter(), true);
+            }
+            else
+            {
+                _selectedMove.Occupy(PlayerFromState(), _selectedCharacter.GetCharacter(), false);
+            }
+
+            _selectedCharacter.Deoccupy();
+            _stateMachine.Next();
+        }
+        _isFighting = false;
+    }
 
     private Player PlayerFromState()
     {

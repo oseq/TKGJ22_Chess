@@ -65,6 +65,12 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 7248632fb471af143947a88a47eae959, type: 3}
+--- !u!33 &6416250208550286856 stripped
+MeshFilter:
+  m_CorrespondingSourceObject: {fileID: 3368862, guid: 7248632fb471af143947a88a47eae959,
+    type: 3}
+  m_PrefabInstance: {fileID: 6416250208549147030}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &7511081037937907664
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -172,6 +178,11 @@ PrefabInstance:
       propertyPath: _playerId
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 8598515813661975083, guid: 8bbc5076e8e4668449da0962d37ef179,
+        type: 3}
+      propertyPath: _playersPiece
+      value: 
+      objectReference: {fileID: 6416250208550286856}
     - target: {fileID: 8598515813661975083, guid: 8bbc5076e8e4668449da0962d37ef179,
         type: 3}
       propertyPath: _pieceTypes.Array.size

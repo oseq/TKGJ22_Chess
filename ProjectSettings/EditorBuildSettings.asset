@@ -8,4 +8,7 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/Stategy.unity
     guid: 80ce1051a87c0464bb1294a76e1fdce8
+  - enabled: 1
+    path: Assets/Scenes/Arcade.unity
+    guid: 019115f54e72c1f4c81aab5e60d2c20d
   m_configObjects: {}
