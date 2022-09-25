@@ -25,8 +25,10 @@ public class SpecialActionController : MonoBehaviour
     private TrailRenderer _trailRenderer;
     [SerializeField]
     private float _trailRendererTime = .5f;
-    [SerializeField]
-    private ParticleSystem forceParticle;
+
+    private TrailRendererEnabler _trailRendererEnabler;
+
+    [SerializeField] private ParticleSystem forceParticle;
 
     private StatsContainer _stats;
     private Stat _cooldown;
@@ -46,6 +48,7 @@ public class SpecialActionController : MonoBehaviour
         _cooldownRate.CreateModifier(StatModifier.Type.Additive, _playerData.CooldownRate);
         _powerUpButtonView.SetReady(false);
         _trailRenderer.emitting = false;
+        _trailRendererEnabler = new TrailRendererEnabler(_trailRenderer, _trailRendererTime);
     }
 
     private void Update()
@@ -77,9 +80,8 @@ public class SpecialActionController : MonoBehaviour
         _rb.AddForce(getActionDirection().normalized * _velocity * Time.deltaTime, ForceMode.Impulse);
         _rb.velocity = getActionDirection().normalized * _velocity;
         ScheduleCooldown();
-
-        _trailRenderer.emitting = true;
-        DOVirtual.DelayedCall(_trailRendererTime, () => _trailRenderer.emitting = false);
+        
+        _trailRendererEnabler.TurnOnTrail();
     }
 
     public void SecondarySpecialAction()
@@ -152,7 +154,8 @@ public class SpecialActionController : MonoBehaviour
         {
             IPowerUpAction.Context context = new()
             {
-                instigator = gameObject
+                instigator = gameObject,
+                onAttachTrail = _trailRendererEnabler
             };
 
             if (_currentPowerUp)

@@ -9,9 +9,13 @@ public class ApplyStatModifierPowerUp : IPowerUpAction
 
     private StatModifier modifier;
 
-    public override void Perform(IPowerUpAction.Context context)
+    public override void Perform(Context context)
     {
-        var statContainer = (StatsContainer)context.instigator.GetComponent<StatsContainer>();
+        if (context.onAttachTrail != null)
+        {
+            context.onAttachTrail.TurnOnTrail();
+        }
+        var statContainer = context.instigator.GetComponent<StatsContainer>();
         modifier = statContainer.GetStat(stat).CreateModifier(modifierType, value);
     }
 
