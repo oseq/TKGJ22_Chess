@@ -262,12 +262,12 @@ GameObject:
   - component: {fileID: 8464238013927634775}
   - component: {fileID: 4933078110072235204}
   m_Layer: 0
-  m_Name: Hexagon
+  m_Name: Center Hexagon
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &8822294209615522224
 Transform:
   m_ObjectHideFlags: 0
