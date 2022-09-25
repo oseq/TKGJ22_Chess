@@ -239,8 +239,8 @@ public class BoardLoop : MonoBehaviour
         {
             State.Player1SelectingCharacter or State.Player1SelectingMove => player1,
             State.Player2SelectingCharacter or State.Player2SelectingMove => player2,
-            State.Fight when _stateMachine.Previous() == State.Player1SelectingMove => player1,
-            State.Fight when _stateMachine.Previous() == State.Player2SelectingMove => player2,
+            State.Fight when _stateMachine.GetPrevious() == State.Player1SelectingMove => player1,
+            State.Fight when _stateMachine.GetPrevious() == State.Player2SelectingMove => player2,
             _ => null
         };
     }
@@ -304,7 +304,7 @@ public class BoardLoop : MonoBehaviour
             return _currentState;
         }
 
-        public State Previous()
+        public State GetPrevious()
         {
             return _previousState;
         }
