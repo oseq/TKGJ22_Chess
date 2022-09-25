@@ -11,6 +11,11 @@ public class Queen: Character
         return ParameterizedGetMoveDirections(owner.directionUnit);
     }
 
+    public override PieceType GetPieceType()
+    {
+        return PieceType.Queen;
+    }
+
 
     public static List<MoveDirection> ParameterizedGetMoveDirections(CharacterDirectionUnit directionUnit)
     {

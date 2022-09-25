@@ -57,4 +57,5 @@ public abstract class Character : MonoBehaviour
     }
 
     public abstract List<MoveDirection> GetMoveDirections();
+    public abstract PieceType GetPieceType();
 }

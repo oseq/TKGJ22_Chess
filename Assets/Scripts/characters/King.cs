@@ -10,6 +10,11 @@ public class King : Character
         return ParameterizedGetMoveDirections(owner.directionUnit);
     }
 
+    public override PieceType GetPieceType()
+    {
+        return PieceType.King;
+    }
+
 
     public static List<MoveDirection> ParameterizedGetMoveDirections(CharacterDirectionUnit directionUnit)
     {

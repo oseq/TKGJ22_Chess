@@ -10,6 +10,11 @@ public class Bishop : Character
         return ParameterizedGetMoveDirections(owner.directionUnit);
     }
 
+    public override PieceType GetPieceType()
+    {
+        return PieceType.Bishop;
+    }
+
 
     public static List<MoveDirection> ParameterizedGetMoveDirections(CharacterDirectionUnit directionUnit)
     {

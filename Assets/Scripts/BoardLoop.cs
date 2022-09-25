@@ -42,6 +42,11 @@ public class BoardLoop : MonoBehaviour
     private Field _selectedMove;
     private bool _isFighting;
 
+    private PieceColor GetPlayerColor(Player player)
+    {
+        return player == player1 ? PieceColor.White : PieceColor.Black;
+    }
+
     private void Start()
     {
         _stateMachine.Next();
@@ -176,6 +181,10 @@ public class BoardLoop : MonoBehaviour
     private void RequestFight(Player attacker, Player defender)
     {
         _isFighting = true;
+        CrossSceneDataTransfer.OffensivePlayer = _selectedCharacter.GetCharacter().GetPieceType();
+        CrossSceneDataTransfer.DeffensivePlayer = _selectedMove.GetCharacter().GetPieceType();
+        CrossSceneDataTransfer.OffensivePlayerColor = GetPlayerColor(PlayerFromState());
+        CrossSceneDataTransfer.DeffensivePlayerColor = GetPlayerColor(PlayerFromState() == player1 ? player2 : player1);
         CrossSceneManager.Instance.RequestFight(attacker, defender, OnFightFinished);
     }
 
