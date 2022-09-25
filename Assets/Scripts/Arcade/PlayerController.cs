@@ -45,13 +45,13 @@ public class PlayerController : MonoBehaviour
         isWhite = _playerId == 1;
         if (isOffensive)
         {
-            //isWhite = CrossSceneDataTransfer.OffensivePlayerColor == PieceColor.White;
+            isWhite = CrossSceneDataTransfer.OffensivePlayerColor == PieceColor.White;
             SetPieceType(CrossSceneDataTransfer.OffensivePlayer);
             specialActionController.SetPieceType(ArcadeGameData.Dictonary[CrossSceneDataTransfer.OffensivePlayer]);
             
         } else
         {
-            //isWhite = CrossSceneDataTransfer.DeffensivePlayerColor == PieceColor.White;
+            isWhite = CrossSceneDataTransfer.DeffensivePlayerColor == PieceColor.White;
             SetPieceType(CrossSceneDataTransfer.DeffensivePlayer);
             specialActionController.SetPieceType(ArcadeGameData.Dictonary[CrossSceneDataTransfer.DeffensivePlayer]);
         }
