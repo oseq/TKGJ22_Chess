@@ -183,17 +183,10 @@ public class BoardLoop : MonoBehaviour
         if (currentState == State.Fight)
         {
             var attacker = PlayerFromState();
-            var defender = attacker == player1 ? player2 : player1;
             if (_selectedMove.IsOccupied() && winner == attacker)
             {
                 _selectedMove.Occupy(attacker, _selectedCharacter.GetCharacter(), true);
             }
-            else
-            {
-                _selectedMove.Occupy(PlayerFromState(), _selectedCharacter.GetCharacter(), false);
-            }
-
-            _selectedCharacter.Deoccupy();
             _stateMachine.Next();
         }
 
