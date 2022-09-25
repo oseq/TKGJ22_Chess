@@ -35,7 +35,7 @@ public class BoardLoop : MonoBehaviour
     [SerializeField] private GameObject camPlayerWhite;
     [SerializeField] private GameObject camPlayerBlack;
 
-    private readonly StateMachine _stateMachine = new();
+    private StateMachine _stateMachine;
     private SelectableFieldList _currentSelection;
 
     private Field _selectedCharacter;
@@ -44,6 +44,7 @@ public class BoardLoop : MonoBehaviour
 
     private void Start()
     {
+        _stateMachine = new StateMachine(this);
         _stateMachine.Next();
         //camPlayerBlack.SetActive(false);
     }
@@ -202,7 +203,7 @@ public class BoardLoop : MonoBehaviour
     }
 
     #region Camera
-    private bool _isCameraIndicatingWhite = false;
+    private bool _isCameraIndicatingWhite = true;
 
     private void TryToSwapCamera()
     {
@@ -219,7 +220,6 @@ public class BoardLoop : MonoBehaviour
 
         camPlayerWhite.SetActive(_isCameraIndicatingWhite);
         camPlayerBlack.SetActive(!_isCameraIndicatingWhite);
-
 
     }
     #endregion
@@ -269,13 +269,15 @@ public class BoardLoop : MonoBehaviour
     {
         private State _previousState;
         private State _currentState;
+        private BoardLoop _owner;
 
         private StateMachine _rollback; // up to one rollback possible :( 
 
-        public StateMachine()
+        public StateMachine(BoardLoop owner)
         {
             _previousState = State.Start;
             _currentState = State.Start;
+            _owner = owner;
         }
 
         public void Rollback()
@@ -302,11 +304,9 @@ public class BoardLoop : MonoBehaviour
 
         public void Next()
         {
-            _rollback = new StateMachine // save the current state for potential rollback
-            {
-                _currentState = _currentState,
-                _previousState = _previousState
-            };
+            _rollback = new StateMachine(_owner); // save the current state for potential rollback
+            _rollback._currentState = _currentState;
+            _rollback._previousState = _previousState;
 
             switch (_currentState)
             {
@@ -317,12 +317,14 @@ public class BoardLoop : MonoBehaviour
                 case State.Player1SelectingCharacter:
                     _previousState = State.Player1SelectingCharacter;
                     _currentState = State.Player1SelectingMove;
+
                     return;
                 case State.Player1SelectingMove:
                     _previousState = State.Player1SelectingMove;
                     _currentState = State.Fight;
                     return;
                 case State.Player2SelectingCharacter:
+                    
                     _previousState = State.Player2SelectingCharacter;
                     _currentState = State.Player2SelectingMove;
                     return;
@@ -331,10 +333,12 @@ public class BoardLoop : MonoBehaviour
                     _currentState = State.Fight;
                     return;
                 case State.Fight when _previousState == State.Player1SelectingMove:
+                    _owner.SwapCamera();
                     _previousState = State.Fight;
                     _currentState = State.Player2SelectingCharacter;
                     return;
                 case State.Fight when _previousState == State.Player2SelectingMove:
+                    _owner.SwapCamera();
                     _previousState = State.Fight;
                     _currentState = State.Player1SelectingCharacter;
                     return;
