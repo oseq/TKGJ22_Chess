@@ -13,5 +13,5 @@ MonoBehaviour:
   m_Name: BigSpeedModifier
   m_EditorClassIdentifier: 
   stat: 0
-  value: 1.5
+  value: 3
   modifierType: 1
