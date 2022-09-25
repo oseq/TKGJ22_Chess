@@ -2,16 +2,18 @@
 using UnityEngine;
 using UnityEngine.InputSystem;
 
-public class InputController : MonoBehaviour
+public class StrategyInputController : MonoBehaviour
 {
-    public event Action<Vector3> OnPerformSkillClicked = delegate { };
-    public event Action<Vector3> OnPerformPowerUpClicked = delegate { };
+    public event Action OnAcceptClickedEvent = delegate { };
+    public event Action OnCancelClickedEvent = delegate { };
 
     [SerializeField]
     private Vector3 _initialInputDirection;
 
     private Vector3 _lastInputDirection;
     private Vector3 _lastRealInputDirection;
+    private bool _wasAcceptTriggered;
+    private bool _wasCancelTriggered;
 
     private readonly float inputDeadzone = 0.1f;
 
@@ -47,21 +49,49 @@ public class InputController : MonoBehaviour
         Debug.Log($"OnMove: {movement}, {_lastInputDirection}");
     }
 
-    public void OnSkill(InputAction.CallbackContext context)
+    public void OnAcceptClicked(InputAction.CallbackContext context)
     {
-        Debug.Log("OnSkill");
+        Debug.Log("OnAccept");
         if (context.action.triggered)
         {
-            OnPerformSkillClicked?.Invoke(GetLastInputDirection());
+            _wasAcceptTriggered = true;
+            OnAcceptClickedEvent?.Invoke();
         }
     }
 
-    public void OnPowerUp(InputAction.CallbackContext context)
+    public void OnCancelClicked(InputAction.CallbackContext context)
     {
-        Debug.Log("OnPowerUp");
+        Debug.Log("OnCancel");
         if (context.action.triggered)
         {
-            OnPerformPowerUpClicked?.Invoke(GetLastInputDirection());
+            _wasCancelTriggered = true;
+            OnCancelClickedEvent?.Invoke();
         }
+    }
+
+    public bool TryToConsumeAccept()
+    {
+        if (_wasAcceptTriggered)
+        {
+            _wasAcceptTriggered = false;
+            return true;
+        }
+        return false;
+    }
+
+    public bool TryToConsumeCancel()
+    {
+        if (_wasCancelTriggered)
+        {
+            _wasCancelTriggered = false;
+            return true;
+        }
+        return false;
+    }
+
+    public void ConsumeAll()
+    {
+        _wasAcceptTriggered = false;
+        _wasCancelTriggered = false;
     }
 }

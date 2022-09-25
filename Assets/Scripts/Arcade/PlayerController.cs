@@ -7,6 +7,8 @@ public class PlayerController : MonoBehaviour
 {
     [SerializeField]
     private int _playerId;
+    [SerializeField]
+    private InputController _inputController;
 
     private Stat _speed;
     private Stat _speedLimit;
@@ -34,7 +36,7 @@ public class PlayerController : MonoBehaviour
     public int PlayerId => _playerId;
     public Rigidbody Rigidbody => _rb;
     public bool HasControl => _inputUnlockedTime <= Time.time;
-    public InputController InputController => InputManager.Instance.GetInputController(PlayerId);
+    public InputController InputController => _inputController;
     private ArcadeGameData ArcadeGameData => ArcadeGameData.Instance;
 
     private void Start()
@@ -103,7 +105,7 @@ public class PlayerController : MonoBehaviour
         if (!HasControl)
             return;
 
-        Vector3 moveDir = InputController.GetRealInputDirection();
+        Vector3 moveDir = InputController.GetRealInputDirection().normalized;
 
         _rb.AddForce(moveDir * _speed.GetValue() * Time.fixedDeltaTime, ForceMode.Force);
         _rb.velocity = ClampVelocity(_rb.velocity);

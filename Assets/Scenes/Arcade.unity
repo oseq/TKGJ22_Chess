@@ -689,6 +689,16 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 11400000, guid: 14fe6c01bc6c6be48977e5d118b90cc8,
         type: 2}
+    - target: {fileID: 4072604706519691742, guid: 4e4e9e978d372324ba87a6c1cd20c441,
+        type: 3}
+      propertyPath: _initialInputDirection.x
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6477682118717400097, guid: 4e4e9e978d372324ba87a6c1cd20c441,
+        type: 3}
+      propertyPath: m_DefaultControlScheme
+      value: Gamepad
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 4e4e9e978d372324ba87a6c1cd20c441, type: 3}
 --- !u!4 &23779634695729556 stripped
@@ -1081,6 +1091,16 @@ PrefabInstance:
       propertyPath: _powerUpButtonView
       value: 
       objectReference: {fileID: 1897911875}
+    - target: {fileID: 3747488719471895755, guid: d8bec73f7c8fe4d4191e773c6f1230c1,
+        type: 3}
+      propertyPath: _initialInputDirection.x
+      value: -1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6152010363171483956, guid: d8bec73f7c8fe4d4191e773c6f1230c1,
+        type: 3}
+      propertyPath: m_DefaultControlScheme
+      value: 
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: d8bec73f7c8fe4d4191e773c6f1230c1, type: 3}
 --- !u!4 &7258031479521697549 stripped

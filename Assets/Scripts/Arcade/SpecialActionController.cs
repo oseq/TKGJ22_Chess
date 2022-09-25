@@ -6,14 +6,13 @@ using UnityEngine;
 
 public class SpecialActionController : MonoBehaviour
 {
+    [SerializeField]
+    private PlayerController _playerController;
+
     private float _velocity;
     private float _jump;
     [SerializeField]
     private Rigidbody _rb;
-    [SerializeField]
-    private KeyCode _button;
-    [SerializeField]
-    private KeyCode _secondButton;
     [SerializeField]
     private PieceData _playerData;
     [SerializeField]
@@ -36,6 +35,8 @@ public class SpecialActionController : MonoBehaviour
     private float _timeToNextUse;
     private PowerUp _currentPowerUp;
 
+    private InputController inputController => _playerController.InputController;
+
     private void Awake()
     {
         _rb = GetComponent<Rigidbody>();
@@ -51,9 +52,20 @@ public class SpecialActionController : MonoBehaviour
         _trailRendererToggler = new TrailRendererToggler(_trailRenderer, _trailRendererTime);
     }
 
+    private void OnEnable()
+    {
+        inputController.OnPerformSkillClicked += InputController_OnPerformSkillClicked;
+        inputController.OnPerformPowerUpClicked += InputController_OnPerformPowerUpClicked;
+    }
+
+    private void OnDisable()
+    {
+        inputController.OnPerformSkillClicked -= InputController_OnPerformSkillClicked;
+        inputController.OnPerformPowerUpClicked -= InputController_OnPerformPowerUpClicked;
+    }
+
     private void Update()
     {
-        CheckSpecialAction();
         _timeToNextUse -= Time.deltaTime * _cooldownRate.GetValue();
         _actionButtonView.UpdateTimer(_timeToNextUse, _cooldown.GetValue());
     }
@@ -63,16 +75,14 @@ public class SpecialActionController : MonoBehaviour
         _playerData = type;
     }
 
-    private void CheckSpecialAction()
+    private void InputController_OnPerformSkillClicked(Vector3 moveDir)
     {
-        if (Input.GetKeyDown(_button))
-        {
-            TryToPerformAction();
-        }
-        if (Input.GetKeyDown(_secondButton))
-        {
-            SecondarySpecialAction();
-        }
+        TryToPerformSkill();
+    }
+
+    private void InputController_OnPerformPowerUpClicked(Vector3 moveDir)
+    {
+        TryToPerformPowerUp();
     }
 
     public void SpecialAction()
@@ -88,7 +98,7 @@ public class SpecialActionController : MonoBehaviour
         
     }
 
-    public void SecondarySpecialAction()
+    public void TryToPerformPowerUp()
     {
         if(_currentPowerUp)
         {
@@ -110,17 +120,12 @@ public class SpecialActionController : MonoBehaviour
         }
     }
 
-    private void TryToPerformAction()
+    private void TryToPerformSkill()
     {
         if (_timeToNextUse > 0)
             return;
 
         SpecialAction();
-    }
-
-    private void TryToPerformSecondaryAction()
-    {
-        SecondarySpecialAction();
     }
 
     public void ResetCooldown()
@@ -136,7 +141,8 @@ public class SpecialActionController : MonoBehaviour
 
     public Vector3 getActionDirection()
     {
-        Vector3 CurrentDirection = _rb.velocity;
+        //Vector3 CurrentDirection = _rb.velocity;
+        Vector3 CurrentDirection = inputController.GetLastInputDirection();
         float MinDistance = float.MaxValue;
         Vector3 MinVector = new Vector3();
         foreach (Vector3 Vector in _playerData.PossibleMoves)
