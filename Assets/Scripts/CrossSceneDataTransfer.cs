@@ -5,9 +5,9 @@ using UnityEngine;
 public static class CrossSceneDataTransfer
 {
     public static PieceType OffensivePlayer = PieceType.Knight;
-    public static PieceColor OffensivePlayerColor;
+    public static PieceColor OffensivePlayerColor = PieceColor.White;
     public static PieceType DeffensivePlayer = PieceType.Rook;
-    public static PieceColor DeffensivePlayerColor;
+    public static PieceColor DeffensivePlayerColor = PieceColor.Black;
     public static bool OffsensivePlayerWon;
 }
 

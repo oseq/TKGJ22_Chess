@@ -42,15 +42,16 @@ public class PlayerController : MonoBehaviour
         specialActionController = GetComponent<SpecialActionController>();
 
         isOffensive = _playerId == 1;
+        isWhite = _playerId == 1;
         if (isOffensive)
         {
-            isWhite = CrossSceneDataTransfer.OffensivePlayerColor == PieceColor.White;
+            //isWhite = CrossSceneDataTransfer.OffensivePlayerColor == PieceColor.White;
             SetPieceType(CrossSceneDataTransfer.OffensivePlayer);
             specialActionController.SetPieceType(ArcadeGameData.Dictonary[CrossSceneDataTransfer.OffensivePlayer]);
             
         } else
         {
-            isWhite = CrossSceneDataTransfer.DeffensivePlayerColor == PieceColor.White;
+            //isWhite = CrossSceneDataTransfer.DeffensivePlayerColor == PieceColor.White;
             SetPieceType(CrossSceneDataTransfer.DeffensivePlayer);
             specialActionController.SetPieceType(ArcadeGameData.Dictonary[CrossSceneDataTransfer.DeffensivePlayer]);
         }
@@ -67,7 +68,7 @@ public class PlayerController : MonoBehaviour
 
     public void SetPieceType(PieceType type)
     {
-        int pieceNumber = !isWhite ? 6 : 0;
+        int pieceNumber = isWhite ? 6 : 0;
         switch (type)
         {
             case PieceType.Bishop:
