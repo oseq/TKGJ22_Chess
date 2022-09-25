@@ -88,13 +88,16 @@ public class SpecialActionController : MonoBehaviour
         {
             if(_currentPowerUp.onUse != null)
             {
-                IPowerUpAction.Context context;
-                context.instigator = gameObject;
+                IPowerUpAction.Context context = new()
+                {
+                    instigator = gameObject,
+                    effect = forceParticle
+                };
                 foreach (var action in _currentPowerUp.onUse)
                 {
                     action.Perform(context);
                 }
-
+                
                 _powerUpButtonView.SetReady(false);
                 _currentPowerUp = null;
             }
@@ -147,8 +150,10 @@ public class SpecialActionController : MonoBehaviour
     {
         if (other.CompareTag("Collectable"))
         {
-            IPowerUpAction.Context context;
-            context.instigator = gameObject;
+            IPowerUpAction.Context context = new()
+            {
+                instigator = gameObject
+            };
 
             if (_currentPowerUp)
             {

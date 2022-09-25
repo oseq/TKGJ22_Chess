@@ -7,11 +7,15 @@ public class ForceFieldPowerUp : IPowerUpAction
     public float radius;
     public float force;
 
-    public override void Perform(IPowerUpAction.Context context)
+    public override void Perform(Context context)
     {
         var position = context.instigator.transform.position;
         Collider[] colliders = Physics.OverlapSphere(position, radius);
 
+        if (context.effect != null)
+        {
+            context.effect.Play();
+        }
         foreach (Collider hit in colliders)
         {
             if (hit.gameObject != context.instigator)

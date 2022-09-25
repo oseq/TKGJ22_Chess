@@ -5,6 +5,7 @@ public abstract class IPowerUpAction : ScriptableObject
     public struct Context
     {
         public GameObject instigator;
+        public ParticleSystem effect;
     }
 
     public abstract void Perform(Context context);
