@@ -53,6 +53,8 @@ public class BoardLoop : MonoBehaviour
 
     private void Update()
     {
+        TryToSwapCamera();
+
         var currentState = _stateMachine.Current();
         if (currentState is State.Start || _isFighting)
         {
@@ -194,6 +196,24 @@ public class BoardLoop : MonoBehaviour
         }
         _isFighting = false;
     }
+
+    #region Camera
+    private bool _isCameraIndicatingWhite = false;
+
+    private void TryToSwapCamera()
+    {
+        if (Input.GetKeyDown(KeyCode.C))
+        {
+            SwapCamera();
+        }
+    }
+
+    private void SwapCamera()
+    {
+        _isCameraIndicatingWhite ^= true;
+        Debug.Log($"Camera swap. Is now indicating white? {_isCameraIndicatingWhite}");
+    }
+    #endregion
 
     private Player PlayerFromState()
     {
